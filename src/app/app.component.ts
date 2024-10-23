@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AlertasService } from './services/alertas.service';
+import { AlertasService } from './core/services/alertas.service';
 
 @Component({
   selector: 'app-root',
