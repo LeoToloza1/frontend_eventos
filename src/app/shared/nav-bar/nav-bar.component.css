@@ -1,0 +1,23 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.navbar-links {
+  display: flex;
+}
+
+.navbar-welcome {
+  margin-left: auto;
+  color: white;
+}
+
+.mat-button {
+  color: white;
+}
+
+.mat-button.active {
+  font-weight: bold;
+}

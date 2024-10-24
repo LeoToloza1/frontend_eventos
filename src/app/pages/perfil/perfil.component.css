@@ -1,0 +1,23 @@
+.perfil-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-info {
+  margin-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #084e94;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+}

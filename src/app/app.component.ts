@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AlertasService } from './core/services/alertas.service';
 
 @Component({
   selector: 'app-root',
@@ -11,8 +10,5 @@ import { AlertasService } from './core/services/alertas.service';
 })
 export class AppComponent {
   title = 'app-gestion';
-  constructor(private alertasService: AlertasService) {}
-  mostrarToast() {
-    this.alertasService.mostrarToast('Hola mundo', 'success', 'Hola Mundo');
-  }
+  constructor() {}
 }

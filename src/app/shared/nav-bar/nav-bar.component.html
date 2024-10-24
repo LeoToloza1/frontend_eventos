@@ -1,1 +1,14 @@
-<p>nav-bar works!</p>
+<mat-toolbar color="primary" class="navbar">
+  <span>Gestión de Eventos</span>
+  <span class="navbar-links">
+    <button mat-button (click)="navigateTo('/eventos')">Eventos</button>
+    <button mat-button (click)="navigateTo('/asistentes')">Asistentes</button>
+    <button mat-button (click)="navigateTo('/participacion')">
+      Participación
+    </button>
+    <button mat-button (click)="navigateTo('/perfil')">Perfil</button>
+  </span>
+  <span class="navbar-welcome"
+    >Bienvenido al sistema: <strong>usuario</strong></span
+  >
+</mat-toolbar>
