@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
-
+import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
+import { FooterComponent } from '../../shared/footer/footer.component';
 @Component({
   selector: 'app-eventos',
   standalone: true,
-  imports: [],
+  imports: [NavBarComponent, FooterComponent],
   templateUrl: './eventos.component.html',
-  styleUrl: './eventos.component.css'
+  styleUrl: './eventos.component.css',
 })
-export class EventosComponent {
-
-}
+export class EventosComponent {}
