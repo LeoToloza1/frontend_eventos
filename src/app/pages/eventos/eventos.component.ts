@@ -5,24 +5,33 @@ import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { EventoService } from '../../core/services/eventos.service';
 import { Evento } from '../../Interfaces/Evento';
-import { ActivatedRoute } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AlertasService } from '../../core/services/alertas.service';
 
 @Component({
   selector: 'app-eventos',
   standalone: true,
-  imports: [NavBarComponent, FooterComponent, NgFor, NgIf, FormsModule],
+  imports: [
+    NavBarComponent,
+    FooterComponent,
+    NgFor,
+    NgIf,
+    FormsModule,
+    MatIconModule,
+  ],
   templateUrl: './eventos.component.html',
   styleUrls: ['./eventos.component.css'],
 })
 export class EventosComponent implements OnInit {
-  private evento: Evento | undefined;
   id: number | undefined;
   eventos: Evento[] = [];
   eventoEditando: Evento | null = null;
 
   constructor(
     private eventoService: EventoService,
-    private route: ActivatedRoute
+    private alertaService: AlertasService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -101,5 +110,8 @@ export class EventosComponent implements OnInit {
 
   cancelarEdicion(): void {
     this.eventoEditando = null;
+  }
+  agregarEvento(): void {
+    this.router.navigate(['/evento']);
   }
 }

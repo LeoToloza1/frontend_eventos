@@ -13,7 +13,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'eventos', component: EventosComponent },
-  { path: 'eventos/:id', component: EventoComponent },
+  { path: 'evento', component: EventoComponent },
   { path: 'asistentes', component: AsistentesComponent },
   { path: 'participacion', component: ParticipacionComponent },
   { path: '**', component: NotFoundComponent, redirectTo: '' },
