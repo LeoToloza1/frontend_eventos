@@ -1,3 +1,25 @@
-<app-nav-bar />
+<app-nav-bar></app-nav-bar>
+<h1>Evento:</h1>
 
-<app-footer />
+<!-- <div id="detalle-evento">
+  <form id="form-detalle-evento" *ngIf="evento">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" [(ngModel)]="evento.nombre" [readonly]="!editing">
+
+    <label for="ubicacion">Ubicación:</label>
+    <input type="text" id="ubicacion" [(ngModel)]="evento.ubicacion" [readonly]="!editing">
+
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" [(ngModel)]="evento.fecha" [readonly]="!editing">
+
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" [(ngModel)]="evento.descripcion" [readonly]="!editing"></textarea>
+
+    <button type="button" (click)="editing ? guardarEvento() : editarEvento()">
+      {{ editing ? 'Guardar' : 'Editar' }}
+    </button>
+    <button type="button" *ngIf="editing" (click)="cancelarEdicion()">Cancelar</button>
+  </form>
+</div> -->
+
+<app-footer></app-footer>
