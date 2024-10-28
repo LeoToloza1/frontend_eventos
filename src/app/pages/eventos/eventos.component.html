@@ -1,3 +1,35 @@
 <app-nav-bar />
-<p>eventos works!</p>
+<div>
+  <h2>Listado de eventos</h2>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Fecha</th>
+          <th>Horario</th>
+          <th>Ubicación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let evento of eventos">
+          <td>{{ evento.nombre }}</td>
+          <td>{{ evento.fecha }}</td>
+          <td>{{ evento.descripcion }}</td>
+          <td>{{ evento.ubicacion }}</td>
+          <td>
+            <!-- Botones de acción -->
+            <button class="editar" (click)="editarEvento(evento.id)">
+              Editar
+            </button>
+            <button class="eliminar" (click)="eliminarEvento(evento.id)">
+              Eliminar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 <app-footer />
