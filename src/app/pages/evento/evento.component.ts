@@ -6,6 +6,7 @@ import { EventoService } from '../../core/services/eventos.service';
 import { Evento } from '../../Interfaces/Evento';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AlertasService } from '../../core/services/alertas.service';
 
 @Component({
   selector: 'app-evento',
@@ -20,11 +21,12 @@ export class EventoComponent implements OnInit {
   // id: number = 0;
   nombre: string = '';
   ubicacion: string = '';
-  fecha: Date = new Date();
+  fecha: string = '';
   descripcion: string = '';
   constructor(
     private eventoService: EventoService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private alertaService: AlertasService
   ) {}
 
   ngOnInit(): void {}
@@ -36,18 +38,29 @@ export class EventoComponent implements OnInit {
       fecha: this.fecha,
       descripcion: this.descripcion,
     };
-
     this.eventoService
       .guardarEvento(nuevoEvento)
       .subscribe((eventoGuardado) => {
-        console.log('Evento guardado:', eventoGuardado);
-        this.resetFormulario();
+        if (eventoGuardado) {
+          this.alertaService.mostrarToast(
+            `Evento "${eventoGuardado.nombre}" guardado con éxito`,
+            'success',
+            'Guardado'
+          );
+          this.resetFormulario();
+        } else {
+          this.alertaService.mostrarToast(
+            'No se pudo guardar el evento',
+            'error',
+            'Error'
+          );
+        }
       });
   }
   resetFormulario() {
     this.nombre = '';
     this.ubicacion = '';
-    this.fecha = new Date();
+    this.fecha = '';
     this.descripcion = '';
   }
 }

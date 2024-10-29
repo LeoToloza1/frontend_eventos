@@ -18,7 +18,7 @@
         <tr>
           <th>Nombre</th>
           <th>Fecha</th>
-          <th>Horario</th>
+          <th>Descripcion</th>
           <th>Ubicación</th>
           <th>Acciones</th>
         </tr>
@@ -82,12 +82,12 @@
               </button>
             </ng-container>
             <ng-template #staticActions>
-              <button class="editar" (click)="editarEvento(evento.id)">
+              <button class="editar" (click)="editarEvento(evento.id || 0)">
                 Editar
               </button>
               <button
                 class="eliminar"
-                (click)="marcarEventoComoRealizado(evento.id)"
+                (click)="marcarEventoComoRealizado(evento.id || 0)"
               >
                 Eliminar
               </button>
