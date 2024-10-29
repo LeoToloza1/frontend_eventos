@@ -32,4 +32,8 @@ export class EventoService {
   actualizarEvento(id: number, evento: Evento): Observable<Evento> {
     return this.http.patch<Evento>(`${this.apiUrl}/parcial/${id}`, evento);
   }
+
+  guardarEvento(e: Evento): Observable<Evento> {
+    return this.http.post<Evento>(`${this.apiUrl}/crear`, e);
+  }
 }

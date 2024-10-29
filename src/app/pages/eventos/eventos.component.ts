@@ -86,25 +86,24 @@ export class EventosComponent implements OnInit {
   }
 
   guardarEvento(): void {
+    const id = this.eventoEditando?.id ?? 0;
     if (this.eventoEditando) {
-      this.eventoService
-        .actualizarEvento(this.eventoEditando.id, this.eventoEditando)
-        .subscribe({
-          next: (eventoActualizado) => {
-            const index = this.eventos.findIndex(
-              (evento) => evento.id === eventoActualizado.id
-            );
-            if (index !== -1) {
-              this.eventos[index] = eventoActualizado;
-            }
-            this.eventoEditando = null;
-            console.log('Evento guardado:', eventoActualizado);
-            this.listarEventosActivos();
-          },
-          error: (error) => {
-            console.error('Error al guardar el evento:', error);
-          },
-        });
+      this.eventoService.actualizarEvento(id, this.eventoEditando).subscribe({
+        next: (eventoActualizado) => {
+          const index = this.eventos.findIndex(
+            (evento) => evento.id === eventoActualizado.id
+          );
+          if (index !== -1) {
+            this.eventos[index] = eventoActualizado;
+          }
+          this.eventoEditando = null;
+          console.log('Evento guardado:', eventoActualizado);
+          this.listarEventosActivos();
+        },
+        error: (error) => {
+          console.error('Error al guardar el evento:', error);
+        },
+      });
     }
   }
 

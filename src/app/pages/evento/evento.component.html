@@ -1,25 +1,49 @@
 <app-nav-bar></app-nav-bar>
 <h1>Evento:</h1>
-
-<!-- <div id="detalle-evento">
-  <form id="form-detalle-evento" *ngIf="evento">
+<div class="nuevo">
+  <form (ngSubmit)="guardarEvento()">
     <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" [(ngModel)]="evento.nombre" [readonly]="!editing">
+    <input
+      type="text"
+      name="nombre"
+      id="nombre"
+      [(ngModel)]="nombre"
+      placeholder="Nombre del evento"
+      required
+    />
 
     <label for="ubicacion">Ubicación:</label>
-    <input type="text" id="ubicacion" [(ngModel)]="evento.ubicacion" [readonly]="!editing">
+    <input
+      type="text"
+      name="ubicacion"
+      id="ubicacion"
+      [(ngModel)]="ubicacion"
+      placeholder="Lugar del evento"
+      required
+    />
 
     <label for="fecha">Fecha:</label>
-    <input type="date" id="fecha" [(ngModel)]="evento.fecha" [readonly]="!editing">
+    <input
+      type="date"
+      name="fecha"
+      id="fecha"
+      (ngModelChange)="(fecha)"
+      placeholder="Fecha del evento"
+      required
+    />
 
     <label for="descripcion">Descripción:</label>
-    <textarea id="descripcion" [(ngModel)]="evento.descripcion" [readonly]="!editing"></textarea>
+    <input
+      type="text"
+      name="descripcion"
+      id="descripcion"
+      [(ngModel)]="descripcion"
+      placeholder="Descripción del evento"
+      required
+    />
 
-    <button type="button" (click)="editing ? guardarEvento() : editarEvento()">
-      {{ editing ? 'Guardar' : 'Editar' }}
-    </button>
-    <button type="button" *ngIf="editing" (click)="cancelarEdicion()">Cancelar</button>
+    <button type="submit">Guardar Evento</button>
   </form>
-</div> -->
+</div>
 
 <app-footer></app-footer>
