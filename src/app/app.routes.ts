@@ -7,6 +7,7 @@ import { EventosComponent } from './pages/eventos/eventos.component';
 import { AsistentesComponent } from './pages/asistentes/asistentes.component';
 import { ParticipacionComponent } from './pages/participacion/participacion.component';
 import { EventoComponent } from './pages/evento/evento.component';
+import { RegistroComponent } from './pages/registro/registro.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'eventos', component: EventosComponent },
   { path: 'evento', component: EventoComponent },
   { path: 'asistentes', component: AsistentesComponent },
+  { path: 'registro', component: RegistroComponent },
   { path: 'participacion', component: ParticipacionComponent },
   { path: '**', component: NotFoundComponent, redirectTo: '' },
 ];

@@ -5,5 +5,4 @@ export interface Asistente {
   email: string;
   telefono: number;
   dni: number;
-  getNombreCompleto(): string;
 }

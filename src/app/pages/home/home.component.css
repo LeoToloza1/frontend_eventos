@@ -71,3 +71,40 @@ header h1 {
   background-color: #000000;
   color: #f3f6f8;
 }
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Nueva clase para agrupar los botones */
+.botones-container {
+  display: flex;
+  gap: 10px; /* Espacio entre botones */
+}
+
+.login-btn,
+.registro-btn {
+  display: flex;
+  align-items: center;
+  background-color: #f3f6f8;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn mat-icon,
+.registro-btn mat-icon {
+  margin-right: 8px;
+}
+
+.login-btn:hover,
+.registro-btn:hover {
+  background-color: #000;
+  color: #f3f6f8;
+}

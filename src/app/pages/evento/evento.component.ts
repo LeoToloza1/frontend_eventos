@@ -16,7 +16,6 @@ import { AlertasService } from '../../core/services/alertas.service';
   styleUrl: './evento.component.css',
 })
 export class EventoComponent implements OnInit {
-  private evento: Evento | undefined;
   eventos: Evento[] = [];
   // id: number = 0;
   nombre: string = '';
@@ -43,7 +42,7 @@ export class EventoComponent implements OnInit {
       .subscribe((eventoGuardado) => {
         if (eventoGuardado) {
           this.alertaService.mostrarToast(
-            `Evento "${eventoGuardado.nombre}" guardado con éxito`,
+            `Evento "${nuevoEvento.nombre}" guardado con éxito`,
             'success',
             'Guardado'
           );

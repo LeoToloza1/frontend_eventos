@@ -22,4 +22,24 @@ export class HomeComponent {
   irALogin() {
     this.router.navigate(['/perfil']);
   }
+
+  //TODO corregir para mostrar el formulario de registro
+  irARegistro() {
+    this.router.navigate(['/registro']);
+  }
 }
+
+// deberia registrar un nuevo Asistente
+// ver el perfil de cada asistente (loguearse con email y dni)
+// login de los organizadores
+// el organizador no puede crear otros organizadors
+// el organizador puede ver todos los asistentes
+// el organizador puede ver todos los eventos
+
+/**
+ * del lado del servidor, configurar el login de los organizadores y el jwt
+ * el login de los asistentes
+ * y validaciones
+ * recupero de contraseña
+ * finalizacion de eventos automatica (opcional)
+ */

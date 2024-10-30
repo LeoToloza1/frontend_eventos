@@ -6,7 +6,7 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 import { EventoService } from '../../core/services/eventos.service';
 import { Evento } from '../../Interfaces/Evento';
 import { MatIconModule } from '@angular/material/icon';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AlertasService } from '../../core/services/alertas.service';
 
 @Component({
