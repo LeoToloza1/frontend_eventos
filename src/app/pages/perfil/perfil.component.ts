@@ -32,7 +32,7 @@ export class PerfilComponent implements OnInit {
   }
 
   obtenerUsuario() {
-    this.usuarioService.obtenerUsuarioPorId(1).subscribe({
+    this.usuarioService.getPerfil().subscribe({
       next: (data: Usuario) => {
         console.log(data);
         this.usuario = data;
