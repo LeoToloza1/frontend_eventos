@@ -9,6 +9,10 @@ export const asistenteInterceptor: HttpInterceptorFn = (req, next) => {
   const alertasService = inject(AlertasService);
   const token = asistenteService.getToken();
 
+  if (!req.url.includes('/asistentes')) {
+    return next(req);
+  }
+
   const reqClonada = token
     ? req.clone({
         setHeaders: { Authorization: `Bearer ${token}` },
@@ -16,7 +20,7 @@ export const asistenteInterceptor: HttpInterceptorFn = (req, next) => {
     : req;
   return next(reqClonada).pipe(
     catchError((err) => {
-      if (err.status === 401) {
+      if (err.status === 403) {
         return asistenteService.refreshToken().pipe(
           switchMap(() => {
             const newToken = asistenteService.getToken();
@@ -38,6 +42,28 @@ export const asistenteInterceptor: HttpInterceptorFn = (req, next) => {
           })
         );
       }
+      // if (err.status === 403) {
+      //   return asistenteService.refreshToken().pipe(
+      //     switchMap((response) => {
+      //       const newToken = asistenteService.getToken();
+      //       const newReq = req.clone({
+      //         setHeaders: { Authorization: `Bearer ${newToken}` },
+      //       });
+      //       return next(newReq);
+      //     }),
+      //     catchError(() => {
+      //       alertasService.mostrarToast(
+      //         'Sesión expirada',
+      //         'error',
+      //         'Por favor, inicia sesión de nuevo.'
+      //       );
+      //       asistenteService.logout();
+      //       return throwError(
+      //         () => new Error('Error al refrescar el token. Sesión expirada.')
+      //       );
+      //     })
+      //   );
+      // }
       return throwError(() => err);
     })
   );
