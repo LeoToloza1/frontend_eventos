@@ -13,6 +13,11 @@ export const usuarioInterceptor: HttpInterceptorFn = (req, next) => {
   const usuarioService = inject(UsuarioService);
   const alertasService = inject(AlertasService);
   const token = usuarioService.getToken();
+
+  if (!req.url.includes('/usuarios')) {
+    return next(req);
+  }
+
   const reqClonada = token
     ? req.clone({
         setHeaders: { Authorization: `Bearer ${token}` },
