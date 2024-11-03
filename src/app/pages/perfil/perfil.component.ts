@@ -15,7 +15,7 @@ import { Usuario } from '../../Interfaces/Usuario';
 })
 export class PerfilComponent implements OnInit {
   usuario: Usuario | undefined;
-
+  activado = false;
   constructor(
     private alerta: AlertasService,
     private usuarioService: UsuarioService
@@ -29,15 +29,16 @@ export class PerfilComponent implements OnInit {
     this.mostrarToast();
   }
 
+  abrirModal() {
+    this.activado = true;
+  }
+
   obtenerUsuario() {
-    this.usuarioService.getPerfil().subscribe({
-      next: (data: Usuario) => {
-        this.usuario = data;
-      },
-      error: (err) => {
-        this.alerta.mostrarToast('Error', 'error', 'Error al obtener usuario');
-        console.error('Error al obtener usuario:', err);
-      },
-    });
+    this.usuarioService
+      .getPerfil()
+      .pipe()
+      .subscribe((response) => {
+        this.usuario = response;
+      });
   }
 }
