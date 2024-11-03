@@ -6,6 +6,7 @@ import { Usuario } from '../../Interfaces/Usuario';
 interface LoginResponse {
   message: string;
   token: string;
+  id: number;
 }
 @Injectable({
   providedIn: 'root',
@@ -25,30 +26,56 @@ export class UsuarioService {
   loginUsuario(email: string, password: string): Observable<LoginResponse> {
     const body = { email, password };
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body).pipe(
-      tap((response: LoginResponse) => {
-        localStorage.setItem('token', response.token);
+      tap((response) => {
+        this.setToken(response.token);
+        this.setId(response.id);
       })
     );
   }
 
-  getPerfil(): Observable<Usuario> {
-    const token = localStorage.getItem('token');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Usuario>(`${this.apiUrl}/perfil`, { headers });
-  }
-  obtenerUsuarioPorId(id: number): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/${id}`);
+  refreshToken(): Observable<LoginResponse> {
+    const id = this.getId();
+    if (!id) {
+      throw new Error('ID de usuario no disponible para refrescar el token.');
+    }
+    return this.http.get<LoginResponse>(`${this.apiUrl}/perfil/${id}`).pipe(
+      tap((response) => {
+        this.setToken(response.token);
+      })
+    );
   }
 
-  setToken(token: string) {
+  logOutUsuario() {
+    this.removeToken();
+    this.removeId();
+  }
+
+  getPerfil(): Observable<Usuario> {
+    return this.http.get<Usuario>(`${this.apiUrl}/perfil`);
+  }
+
+  private setToken(token: string) {
     localStorage.setItem('token', token);
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  getToken(): string {
+    return localStorage.getItem('token') ?? '';
   }
 
-  removeToken() {
+  private removeToken() {
     localStorage.removeItem('token');
+  }
+
+  private setId(id: number) {
+    localStorage.setItem('id', id.toString());
+  }
+
+  getId(): number | null {
+    const id = localStorage.getItem('id');
+    return id ? parseInt(id, 10) : null;
+  }
+
+  private removeId() {
+    localStorage.removeItem('id');
   }
 }

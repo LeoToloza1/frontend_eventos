@@ -27,14 +27,14 @@ export class LoginComponent implements OnInit {
     this.usuarioService.loginUsuario(email, password).subscribe({
       next: (data) => {
         this.alerta.mostrarToast('Login exitoso', 'success', 'Login');
-        localStorage.setItem('token', data.token);
         this.router.navigate(['/perfil']);
       },
       error: (err) => {
         this.alerta.mostrarToast('Credenciales inválidas', 'error', 'Login');
+        console.log(err);
       },
       complete: () => {
-        this.isLoading = false; // Restablece el estado después de completar
+        this.isLoading = false;
       },
     });
   }
