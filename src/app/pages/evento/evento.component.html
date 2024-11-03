@@ -1,0 +1,49 @@
+<app-nav-bar></app-nav-bar>
+<h1>Evento:</h1>
+<div class="nuevo">
+  <form (ngSubmit)="guardarEvento()">
+    <label for="nombre">Nombre:</label>
+    <input
+      type="text"
+      name="nombre"
+      id="nombre"
+      [(ngModel)]="nombre"
+      placeholder="Nombre del evento"
+      required
+    />
+
+    <label for="ubicacion">Ubicación:</label>
+    <input
+      type="text"
+      name="ubicacion"
+      id="ubicacion"
+      [(ngModel)]="ubicacion"
+      placeholder="Lugar del evento"
+      required
+    />
+
+    <label for="fecha">Fecha:</label>
+    <input
+      type="date"
+      name="fecha"
+      id="fecha"
+      [(ngModel)]="fecha"
+      placeholder="Fecha del evento"
+      required
+    />
+
+    <label for="descripcion">Descripción:</label>
+    <input
+      type="text"
+      name="descripcion"
+      id="descripcion"
+      [(ngModel)]="descripcion"
+      placeholder="Descripción del evento"
+      required
+    />
+
+    <button type="submit">Guardar Evento</button>
+  </form>
+</div>
+
+<app-footer></app-footer>
