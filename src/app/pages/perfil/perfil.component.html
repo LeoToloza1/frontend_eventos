@@ -1,17 +1,44 @@
 <app-nav-bar />
-<!-- perfil.component.html -->
 <div class="perfil-container">
   <h2>Perfil de Usuario</h2>
   <div class="perfil-info">
-    <p><strong>Nombre:</strong> {{ usuario?.nombre }}</p>
-    <p><strong>Apellido:</strong> {{ usuario?.apellido }}</p>
-    <p><strong>Email:</strong> {{ usuario?.email }}</p>
-    <p><strong>Teléfono:</strong> {{ usuario?.telefono }}</p>
-    <p><strong>Rol:</strong> {{ usuario?.rol?.rol || "Sin rol" }}</p>
+    <div *ngIf="!activado">
+      <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
+      <p><strong>Apellido:</strong> {{ usuario.apellido }}</p>
+      <p><strong>Email:</strong> {{ usuario.email }}</p>
+      <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
+      <p><strong>Rol:</strong> {{ usuario.rol.rol || "Sin rol" }}</p>
+    </div>
+    <div *ngIf="activado">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="usuario.nombre" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input matInput [(ngModel)]="usuario.apellido" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="usuario.email" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Teléfono</mat-label>
+        <input matInput [(ngModel)]="usuario.telefono" type="number" />
+      </mat-form-field>
+    </div>
   </div>
-  <button mat-raised-button color="primary" (click)="editarPerfil()">
-    Editar Perfil
-  </button>
 </div>
+<button mat-raised-button *ngIf="!activado" (click)="editarPerfil()">
+  Editar Perfil
+</button>
+<button
+  mat-raised-button
+  color="accent"
+  *ngIf="activado"
+  (click)="guardarCambios()"
+>
+  Guardar Cambios
+</button>
 
 <app-footer />
