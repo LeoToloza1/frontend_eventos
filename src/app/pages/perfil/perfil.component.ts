@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { AlertasService } from '../../core/services/alertas.service';
-import { UsuarioService } from '../../core/services/usuario.service';
+import { AuthService } from '../../core/services/auth.service';
 import { Usuario } from '../../Interfaces/Usuario';
 
 @Component({
@@ -18,7 +18,7 @@ export class PerfilComponent implements OnInit {
   activado = false;
   constructor(
     private alerta: AlertasService,
-    private usuarioService: UsuarioService
+    private authService: AuthService
   ) {}
   mostrarToast() {}
   ngOnInit(): void {
@@ -34,7 +34,7 @@ export class PerfilComponent implements OnInit {
   }
 
   obtenerUsuario() {
-    this.usuarioService
+    this.authService
       .getPerfil()
       .pipe()
       .subscribe((response) => {

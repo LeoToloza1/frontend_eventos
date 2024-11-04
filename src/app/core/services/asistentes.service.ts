@@ -19,6 +19,7 @@ export class AsistentesService {
 
   loginAsistente(email: string, password: string): Observable<LoginResponse> {
     const body = { email, password };
+    console.log('ASISTENTE : ', body);
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body).pipe(
       tap((response) => {
         this.setToken(response.token);
@@ -39,7 +40,11 @@ export class AsistentesService {
     );
   }
 
-  logout() {
+  getPerfil(): Observable<Asistente> {
+    return this.http.get<Asistente>(`${this.apiUrl}/perfil`);
+  }
+
+  logOutAsistente() {
     this.removeToken();
     this.removeId();
   }
@@ -65,7 +70,7 @@ export class AsistentesService {
   /***
    *
    */
-  private setToken(token: string) {
+  setToken(token: string) {
     localStorage.setItem('tokenAsistente', token);
   }
 
@@ -73,11 +78,11 @@ export class AsistentesService {
     return localStorage.getItem('tokenAsistente') ?? '';
   }
 
-  private removeToken() {
+  removeToken() {
     localStorage.removeItem('tokenAsistente');
   }
 
-  private setId(id: number) {
+  setId(id: number) {
     localStorage.setItem('idAsistente', id.toString());
   }
 
@@ -86,7 +91,7 @@ export class AsistentesService {
     return id ? parseInt(id, 10) : null;
   }
 
-  private removeId() {
+  removeId() {
     localStorage.removeItem('idAsistente');
   }
 }

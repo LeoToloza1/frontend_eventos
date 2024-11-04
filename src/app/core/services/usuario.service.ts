@@ -25,6 +25,7 @@ export class UsuarioService {
    */
   loginUsuario(email: string, password: string): Observable<LoginResponse> {
     const body = { email, password };
+    console.log('USUARIO : ', body);
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body).pipe(
       tap((response) => {
         this.setToken(response.token);
@@ -103,7 +104,7 @@ export class UsuarioService {
     return this.http.patch<Usuario>(`${this.apiUrl}/parcial`, user);
   }
 
-  private setToken(tokenUsuario: string) {
+  setToken(tokenUsuario: string) {
     localStorage.setItem('tokenUsuario', tokenUsuario);
   }
 
@@ -111,11 +112,11 @@ export class UsuarioService {
     return localStorage.getItem('tokenUsuario') ?? '';
   }
 
-  private removeToken() {
+  removeToken() {
     localStorage.removeItem('tokenUsuario');
   }
 
-  private setId(idUsuario: number) {
+  setId(idUsuario: number) {
     localStorage.setItem('idUsuario', idUsuario.toString());
   }
 
@@ -124,7 +125,7 @@ export class UsuarioService {
     return id ? parseInt(id, 10) : null;
   }
 
-  private removeId() {
+  removeId() {
     localStorage.removeItem('idUsuario');
   }
 }
