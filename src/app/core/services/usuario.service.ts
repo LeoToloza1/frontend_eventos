@@ -12,7 +12,7 @@ interface LoginResponse {
   providedIn: 'root',
 })
 export class UsuarioService {
-  private apiUrl = 'http://leotoloza.alwaysdata.net/usuarios';
+  private apiUrl = 'https://leotoloza.alwaysdata.net/usuarios';
   private nombreUsuarioKey = 'nombredeusuario';
   constructor(private http: HttpClient) {}
 
