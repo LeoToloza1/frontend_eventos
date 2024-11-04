@@ -8,7 +8,10 @@
     </button>
     <button mat-button (click)="navigateTo('/perfil')">Perfil</button>
   </span>
-  <span class="navbar-welcome"
-    >Bienvenido al sistema: <strong>usuario</strong></span
-  >
+  <span class="navbar-welcome">
+    <span class="spacer">
+      <div *ngIf="usuario">Bienvenido, {{ usuario }}</div>
+      <button mat-button (click)="navigateTo('/logout')">Cerrar Sesión</button>
+    </span>
+  </span>
 </mat-toolbar>

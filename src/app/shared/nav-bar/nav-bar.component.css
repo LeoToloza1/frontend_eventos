@@ -3,6 +3,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
+  background-color: #000d55;
 }
 
 .navbar-links {
@@ -10,14 +11,29 @@
 }
 
 .navbar-welcome {
+  display: flex;
+  align-items: center;
   margin-left: auto;
   color: white;
 }
 
+.spacer {
+  margin-right: 20px;
+}
+
 .mat-button {
   color: white;
+  margin-left: 15px;
+}
+
+.mat-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .mat-button.active {
   font-weight: bold;
+}
+
+.navbar-welcome div {
+  margin-right: 20px;
 }

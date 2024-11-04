@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UsuarioService } from '../../core/services/usuario.service';
+import { AuthService } from '../../core/services/auth.service';
 import { AlertasService } from '../../core/services/alertas.service';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,19 +13,36 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements OnInit {
-  isLoading = false;
+  isLoading: boolean = false;
+  tipo: string = '';
+  esAsistente: boolean = false;
 
   constructor(
     private alerta: AlertasService,
-    private usuarioService: UsuarioService,
-    private router: Router
+    private authService: AuthService,
+    private router: Router,
+    private ruta: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.ruta.queryParams.subscribe((params) => {
+      this.tipo = params['tipo'];
+      this.validarTipo();
+    });
+  }
 
+  validarTipo(): void {
+    if (this.tipo === 'asistente') {
+      this.esAsistente = true;
+    } else if (this.tipo === 'usuario') {
+      this.esAsistente = false;
+    } else {
+      this.alerta.mostrarToast('URL incorrecta', 'error', 'Login');
+      this.router.navigate(['/']);
+    }
+  }
   login(email: string, password: string) {
-    this.isLoading = true; // Indica que se está procesando el login
-    this.usuarioService.loginUsuario(email, password).subscribe({
+    this.authService.login(email, password, this.esAsistente).subscribe({
       next: (data) => {
         this.alerta.mostrarToast('Login exitoso', 'success', 'Login');
         this.router.navigate(['/perfil']);
@@ -33,6 +51,7 @@ export class LoginComponent implements OnInit {
         this.alerta.mostrarToast('Credenciales inválidas', 'error', 'Login');
         console.log(err);
       },
+
       complete: () => {
         this.isLoading = false;
       },

@@ -42,28 +42,28 @@ export const asistenteInterceptor: HttpInterceptorFn = (req, next) => {
           })
         );
       }
-      // if (err.status === 403) {
-      //   return asistenteService.refreshToken().pipe(
-      //     switchMap((response) => {
-      //       const newToken = asistenteService.getToken();
-      //       const newReq = req.clone({
-      //         setHeaders: { Authorization: `Bearer ${newToken}` },
-      //       });
-      //       return next(newReq);
-      //     }),
-      //     catchError(() => {
-      //       alertasService.mostrarToast(
-      //         'Sesión expirada',
-      //         'error',
-      //         'Por favor, inicia sesión de nuevo.'
-      //       );
-      //       asistenteService.logout();
-      //       return throwError(
-      //         () => new Error('Error al refrescar el token. Sesión expirada.')
-      //       );
-      //     })
-      //   );
-      // }
+      if (err.status === 401) {
+        return asistenteService.refreshToken().pipe(
+          switchMap((response) => {
+            const newToken = asistenteService.getToken();
+            const newReq = req.clone({
+              setHeaders: { Authorization: `Bearer ${newToken}` },
+            });
+            return next(newReq);
+          }),
+          catchError(() => {
+            alertasService.mostrarToast(
+              'Sesión expirada',
+              'error',
+              'Por favor, inicia sesión de nuevo.'
+            );
+            asistenteService.logout();
+            return throwError(
+              () => new Error('Error al refrescar el token. Sesión expirada.')
+            );
+          })
+        );
+      }
       return throwError(() => err);
     })
   );

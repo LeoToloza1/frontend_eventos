@@ -13,6 +13,7 @@ interface LoginResponse {
 })
 export class UsuarioService {
   private apiUrl = 'http://leotoloza.alwaysdata.net/usuarios';
+  private nombreUsuarioKey = 'nombredeusuario';
   constructor(private http: HttpClient) {}
 
   /**
@@ -25,6 +26,7 @@ export class UsuarioService {
    */
   loginUsuario(email: string, password: string): Observable<LoginResponse> {
     const body = { email, password };
+    console.log('USUARIO : ', body);
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body).pipe(
       tap((response) => {
         this.setToken(response.token);
@@ -74,9 +76,21 @@ export class UsuarioService {
    *          contiene el perfil del usuario actual.
    */
   getPerfil(): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/perfil`);
+    return this.http.get<Usuario>(`${this.apiUrl}/perfil`).pipe(
+      tap((usuario) => {
+        localStorage.setItem(this.nombreUsuarioKey, usuario.nombre);
+        console.log('Guardando nombre: ' + this.nombreUsuarioKey);
+      })
+    );
   }
-
+  /**
+   * Obtiene el nombre del usuario almacenado.
+   *
+   * @returns El nombre del usuario si está disponible, o null si no.
+   */
+  getNombre(): string | null {
+    return localStorage.getItem(this.nombreUsuarioKey); // Usar la clave correcta
+  }
   /**
    * Registra un nuevo usuario en el sistema.
    *
@@ -103,7 +117,7 @@ export class UsuarioService {
     return this.http.patch<Usuario>(`${this.apiUrl}/parcial`, user);
   }
 
-  private setToken(tokenUsuario: string) {
+  setToken(tokenUsuario: string) {
     localStorage.setItem('tokenUsuario', tokenUsuario);
   }
 
@@ -111,11 +125,11 @@ export class UsuarioService {
     return localStorage.getItem('tokenUsuario') ?? '';
   }
 
-  private removeToken() {
+  removeToken() {
     localStorage.removeItem('tokenUsuario');
   }
 
-  private setId(idUsuario: number) {
+  setId(idUsuario: number) {
     localStorage.setItem('idUsuario', idUsuario.toString());
   }
 
@@ -124,7 +138,7 @@ export class UsuarioService {
     return id ? parseInt(id, 10) : null;
   }
 
-  private removeId() {
+  removeId() {
     localStorage.removeItem('idUsuario');
   }
 }

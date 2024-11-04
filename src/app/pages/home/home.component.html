@@ -2,9 +2,6 @@
   <div class="header-content">
     <h1>Gestión de Eventos</h1>
     <div class="botones-container">
-      <button (click)="irALogin()" class="login-btn">
-        <mat-icon>login</mat-icon> Login
-      </button>
       <button (click)="irARegistro()" class="registro-btn">
         <mat-icon>add_circle</mat-icon> Registrarse
       </button>
@@ -20,5 +17,30 @@
       rápida.
     </p>
   </section>
+
+  <section class="cards-container">
+    <!-- Card de Login de Usuarios -->
+    <div class="card">
+      <h3>Login de Usuarios</h3>
+      <p>
+        Accede como usuario para gestionar tus eventos y participar en ellos.
+      </p>
+      <button (click)="irALogin('usuario')" class="card-btn">
+        <mat-icon>person</mat-icon> Entrar como Usuario
+      </button>
+    </div>
+
+    <!-- Card de Login de Asistentes -->
+    <div class="card">
+      <h3>Login de Asistentes</h3>
+      <p>
+        Accede como asistente para ver y participar en los eventos disponibles.
+      </p>
+      <button (click)="irALogin('asistente')" class="card-btn">
+        <mat-icon>group</mat-icon> Entrar como Asistente
+      </button>
+    </div>
+  </section>
+
   <p class="credito">Hecho por Leonel Toloza - 2024</p>
 </main>
