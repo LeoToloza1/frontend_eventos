@@ -20,14 +20,12 @@ export class PerfilComponent implements OnInit {
     private alerta: AlertasService,
     private authService: AuthService
   ) {}
-  mostrarToast() {}
+
   ngOnInit(): void {
     this.obtenerUsuario();
   }
 
-  editarPerfil() {
-    this.mostrarToast();
-  }
+  editarPerfil() {}
 
   abrirModal() {
     this.activado = true;

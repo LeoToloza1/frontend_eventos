@@ -13,6 +13,7 @@ interface LoginResponse {
 })
 export class UsuarioService {
   private apiUrl = 'http://leotoloza.alwaysdata.net/usuarios';
+  private nombreUsuarioKey = 'nombredeusuario';
   constructor(private http: HttpClient) {}
 
   /**
@@ -75,9 +76,21 @@ export class UsuarioService {
    *          contiene el perfil del usuario actual.
    */
   getPerfil(): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.apiUrl}/perfil`);
+    return this.http.get<Usuario>(`${this.apiUrl}/perfil`).pipe(
+      tap((usuario) => {
+        localStorage.setItem(this.nombreUsuarioKey, usuario.nombre);
+        console.log('Guardando nombre: ' + this.nombreUsuarioKey);
+      })
+    );
   }
-
+  /**
+   * Obtiene el nombre del usuario almacenado.
+   *
+   * @returns El nombre del usuario si está disponible, o null si no.
+   */
+  getNombre(): string | null {
+    return localStorage.getItem(this.nombreUsuarioKey); // Usar la clave correcta
+  }
   /**
    * Registra un nuevo usuario en el sistema.
    *

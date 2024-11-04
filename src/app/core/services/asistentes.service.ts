@@ -14,7 +14,7 @@ interface LoginResponse {
 })
 export class AsistentesService {
   private apiUrl = 'http://leotoloza.alwaysdata.net/asistentes';
-
+  private nombreAsistenteKey = 'nombredelasistente';
   constructor(private http: HttpClient) {}
 
   loginAsistente(email: string, password: string): Observable<LoginResponse> {
@@ -41,7 +41,16 @@ export class AsistentesService {
   }
 
   getPerfil(): Observable<Asistente> {
-    return this.http.get<Asistente>(`${this.apiUrl}/perfil`);
+    return this.http.get<Asistente>(`${this.apiUrl}/perfil`).pipe(
+      tap((usuario) => {
+        localStorage.setItem(this.nombreAsistenteKey, usuario.nombre);
+        console.log('Guardando nombre: ' + this.nombreAsistenteKey);
+      })
+    );
+  }
+
+  getNombre() {
+    return localStorage.getItem(this.nombreAsistenteKey); // Usar la clave correcta
   }
 
   logOutAsistente() {

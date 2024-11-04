@@ -103,11 +103,27 @@ export class AuthService {
     return throwError(() => new Error('No hay usuario o asistente logueado.'));
   }
 
-  logOut() {
-    if (this.asistenteService.getToken()) {
-      this.asistenteService.logOutAsistente();
-    } else if (this.usuarioService.getToken()) {
-      this.usuarioService.logOutUsuario();
+  /**
+   * Verifica si un usuario o asistente está logueado y devuelve información detallada.
+   *
+   * Comprueba si hay un token de usuario o de asistente disponible y, en caso
+   * afirmativo, devuelve un objeto que contiene el tipo ('usuario' o 'asistente'),
+   * el token, el ID y el perfil correspondiente. Si no hay ningún token presente,
+   * devuelve `null`.
+   *
+   * @returns Un objeto con el tipo, token, ID y perfil del usuario o asistente
+   *          logueado, o `null` si no hay ninguno logueado.
+   */
+  logueado() {
+    const tokenUsuario = this.usuarioService.getToken();
+    const tokenAsistente = this.asistenteService.getToken();
+
+    if (tokenUsuario) {
+      return this.usuarioService.getNombre();
+    } else if (tokenAsistente) {
+      return this.asistenteService.getNombre();
     }
+
+    return '';
   }
 }
