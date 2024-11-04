@@ -1,13 +1,22 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { UsuarioService } from '../services/usuario.service';
 import { AlertasService } from '../services/alertas.service';
+import { catchError, switchMap, throwError } from 'rxjs';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
+/**
+ * Interceptador que agrega el token de autenticación a las solicitudes
+ * si está disponible. Si no hay token, la solicitud se deja intacta.
+ * @returns La solicitud modificada o la original.
+ */
+export const usuarioInterceptor: HttpInterceptorFn = (req, next) => {
+  const usuarioService = inject(UsuarioService);
   const alertasService = inject(AlertasService);
-  const token = authService.getToken();
+  const token = usuarioService.getToken();
+
+  if (!req.url.includes('/usuarios')) {
+    return next(req);
+  }
 
   const reqClonada = token
     ? req.clone({
@@ -17,9 +26,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(reqClonada).pipe(
     catchError((err) => {
       if (err.status === 401) {
-        return authService.refreshToken().pipe(
+        return usuarioService.refreshToken().pipe(
           switchMap((response) => {
-            const newToken = response.token;
+            const newToken = usuarioService.getToken();
             const newReq = req.clone({
               setHeaders: { Authorization: `Bearer ${newToken}` },
             });
@@ -31,7 +40,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
               'error',
               'Por favor, inicia sesión de nuevo.'
             );
-            // authService.logOut();
+            usuarioService.logOutUsuario();
             return throwError(
               () => new Error('Error al refrescar el token. Sesión expirada.')
             );
@@ -39,9 +48,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
         );
       }
       if (err.status === 403) {
-        return authService.refreshToken().pipe(
+        return usuarioService.refreshToken().pipe(
           switchMap((response) => {
-            const newToken = response.token;
+            const newToken = usuarioService.getToken();
             const newReq = req.clone({
               setHeaders: { Authorization: `Bearer ${newToken}` },
             });
@@ -49,16 +58,22 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           }),
           catchError(() => {
             alertasService.mostrarToast(
-              'No Autorizado',
+              'Sesión expirada',
               'error',
               'Por favor, inicia sesión de nuevo.'
             );
-            // authService.logOut();
+            usuarioService.logOutUsuario();
             return throwError(
               () => new Error('Error al refrescar el token. Sesión expirada.')
             );
           })
         );
+        // alertasService.mostrarToast(
+        //   'Acceso denegado',
+        //   'error',
+        //   'No tienes permisos para acceder a esta ruta.'
+        // );
+        // return throwError(() => new Error('Acceso denegado.'));
       }
       return throwError(() => err);
     })

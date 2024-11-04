@@ -1,13 +1,17 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { AuthService } from '../services/auth.service';
 import { inject } from '@angular/core';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { AsistentesService } from '../services/asistentes.service';
 import { AlertasService } from '../services/alertas.service';
+import { catchError, switchMap, throwError } from 'rxjs';
 
-export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const authService = inject(AuthService);
+export const asistenteInterceptor: HttpInterceptorFn = (req, next) => {
+  const asistenteService = inject(AsistentesService);
   const alertasService = inject(AlertasService);
-  const token = authService.getToken();
+  const token = asistenteService.getToken();
+
+  if (!req.url.includes('/asistentes')) {
+    return next(req);
+  }
 
   const reqClonada = token
     ? req.clone({
@@ -16,10 +20,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     : req;
   return next(reqClonada).pipe(
     catchError((err) => {
-      if (err.status === 401) {
-        return authService.refreshToken().pipe(
-          switchMap((response) => {
-            const newToken = response.token;
+      if (err.status === 403) {
+        return asistenteService.refreshToken().pipe(
+          switchMap(() => {
+            const newToken = asistenteService.getToken();
             const newReq = req.clone({
               setHeaders: { Authorization: `Bearer ${newToken}` },
             });
@@ -31,17 +35,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
               'error',
               'Por favor, inicia sesión de nuevo.'
             );
-            // authService.logOut();
+            asistenteService.logout();
             return throwError(
               () => new Error('Error al refrescar el token. Sesión expirada.')
             );
           })
         );
       }
-      if (err.status === 403) {
-        return authService.refreshToken().pipe(
+      if (err.status === 401) {
+        return asistenteService.refreshToken().pipe(
           switchMap((response) => {
-            const newToken = response.token;
+            const newToken = asistenteService.getToken();
             const newReq = req.clone({
               setHeaders: { Authorization: `Bearer ${newToken}` },
             });
@@ -49,11 +53,11 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           }),
           catchError(() => {
             alertasService.mostrarToast(
-              'No Autorizado',
+              'Sesión expirada',
               'error',
               'Por favor, inicia sesión de nuevo.'
             );
-            // authService.logOut();
+            asistenteService.logout();
             return throwError(
               () => new Error('Error al refrescar el token. Sesión expirada.')
             );

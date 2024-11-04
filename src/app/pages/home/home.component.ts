@@ -10,21 +10,30 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './home.component.css',
 })
 export class HomeComponent {
+  tipo: string = '';
   /**
    *
    */
   constructor(private alertasService: AlertasService, private router: Router) {}
 
-  mostrarToast() {
-    this.alertasService.mostrarToast('Hola mundo', 'success', 'Hola Mundo');
-  }
   //login para usuarios
-  irALogin() {
-    this.router.navigate(['/login']);
+  irALogin(tipo: string) {
+    if (this.validarTipo(tipo)) {
+      this.router.navigate(['/login'], { queryParams: { tipo } });
+    } else {
+      this.alertasService.mostrarToast(
+        'URL incorrecta',
+        'info',
+        'Intende de nuevo por favor'
+      );
+    }
   }
 
+  validarTipo(tipo: string): boolean {
+    return tipo === 'asistente' || tipo === 'usuario';
+  }
   //registro de usuarios nuevos
   irARegistro() {
-    this.router.navigate(['/registro']);
+    this.router.navigate(['/registro']); //implementar algo parecido al login
   }
 }
