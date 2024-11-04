@@ -13,7 +13,7 @@ interface LoginResponse {
   providedIn: 'root',
 })
 export class AsistentesService {
-  private apiUrl = 'http://leotoloza.alwaysdata.net/asistentes';
+  private apiUrl = 'https://leotoloza.alwaysdata.net/asistentes';
   private nombreAsistenteKey = 'nombredelasistente';
   constructor(private http: HttpClient) {}
 

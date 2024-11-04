@@ -7,7 +7,7 @@ import { Evento } from '../../Interfaces/Evento';
   providedIn: 'root',
 })
 export class EventoService {
-  private apiUrl = 'http://leotoloza.alwaysdata.net/eventos';
+  private apiUrl = 'https://leotoloza.alwaysdata.net/eventos';
 
   constructor(private http: HttpClient) {}
 
