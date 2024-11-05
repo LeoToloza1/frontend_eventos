@@ -3,7 +3,7 @@ import { NgFor } from '@angular/common';
 import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { EventoService } from '../../core/services/eventos.service';
-import { Evento } from '../../Interfaces/Evento';
+import { Evento } from '../../core/Interfaces/Evento';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AlertasService } from '../../core/services/alertas.service';

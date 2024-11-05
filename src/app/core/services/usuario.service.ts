@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { Usuario } from '../../Interfaces/Usuario';
+import { Usuario } from '../Interfaces/Usuario';
 
 interface LoginResponse {
   message: string;

@@ -4,7 +4,7 @@ import { FooterComponent } from '../../shared/footer/footer.component';
 import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { AlertasService } from '../../core/services/alertas.service';
 import { AuthService } from '../../core/services/auth.service';
-import { Usuario } from '../../Interfaces/Usuario';
+import { Usuario } from '../../core/Interfaces/Usuario';
 import { FormsModule } from '@angular/forms'; // Importa FormsModule
 import { MatFormFieldModule } from '@angular/material/form-field'; // Importa MatFormFieldModule
 import { MatInputModule } from '@angular/material/input'; // Importa MatInputModule
@@ -58,7 +58,6 @@ export class PerfilComponent implements OnInit {
     // );
     this.activado = false;
   }
-
   obtenerUsuario() {
     this.authService
       .getPerfil()
@@ -68,3 +67,14 @@ export class PerfilComponent implements OnInit {
       });
   }
 }
+
+/**
+ * TODO:
+ * 1- modificar perfil para que sirva para usuario y asistente
+ * 2- Guardar cambios para usuario y asistente
+ * 3- service de de participacion
+ * 4- UI de participacion para usuario y asistente
+ * 5- marcar participacion como realizada
+ * 6- proteccion de rutas con guard
+ * 7- ver componentes generales para resolver lo de carga de SPA
+ */
