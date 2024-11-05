@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
-import { Asistente } from '../../Interfaces/Asistente';
+import { Asistente } from '../../core/Interfaces/Asistente';
 import { AlertasService } from '../../core/services/alertas.service';
 import { AsistentesService } from '../../core/services/asistentes.service';
 import { Router } from '@angular/router';

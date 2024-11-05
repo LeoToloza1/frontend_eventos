@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { EventoService } from '../../core/services/eventos.service';
-import { Evento } from '../../Interfaces/Evento';
+import { Evento } from '../../core/Interfaces/Evento';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { AlertasService } from '../../core/services/alertas.service';
