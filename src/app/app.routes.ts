@@ -18,5 +18,5 @@ export const routes: Routes = [
   { path: 'asistentes', component: AsistentesComponent },
   { path: 'registro', component: RegistroComponent },
   { path: 'participacion', component: ParticipacionComponent },
-  { path: '**', component: NotFoundComponent, redirectTo: '' },
+  { path: '**', component: NotFoundComponent },
 ];
