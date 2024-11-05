@@ -1,0 +1,8 @@
+version: 1
+services:
+  - type: web
+    name: AppGestion
+    env: static
+    staticSite:
+      publishPath: dist/app-gestion/browser
+      fallback: index.html
