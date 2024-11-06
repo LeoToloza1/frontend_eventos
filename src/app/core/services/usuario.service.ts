@@ -14,6 +14,7 @@ interface LoginResponse {
 export class UsuarioService {
   private apiUrl = 'https://leotoloza.alwaysdata.net/usuarios';
   private nombreUsuarioKey = 'nombredeusuario';
+  private rolUsuarioKey = 'rolUsuario';
   constructor(private http: HttpClient) {}
 
   /**
@@ -26,11 +27,11 @@ export class UsuarioService {
    */
   loginUsuario(email: string, password: string): Observable<LoginResponse> {
     const body = { email, password };
-    console.log('USUARIO : ', body);
     return this.http.post<LoginResponse>(`${this.apiUrl}/login`, body).pipe(
       tap((response) => {
         this.setToken(response.token);
         this.setId(response.id);
+        this.setRol('Usuario');
       })
     );
   }
@@ -79,7 +80,6 @@ export class UsuarioService {
     return this.http.get<Usuario>(`${this.apiUrl}/perfil`).pipe(
       tap((usuario) => {
         localStorage.setItem(this.nombreUsuarioKey, usuario.nombre);
-        console.log('Guardando nombre: ' + this.nombreUsuarioKey);
       })
     );
   }
@@ -140,5 +140,17 @@ export class UsuarioService {
 
   removeId() {
     localStorage.removeItem('idUsuario');
+  }
+
+  setRol(rol: string) {
+    localStorage.setItem(this.rolUsuarioKey, rol);
+  }
+
+  getRol(): string | null {
+    return localStorage.getItem(this.rolUsuarioKey);
+  }
+
+  removeRol() {
+    localStorage.removeItem(this.rolUsuarioKey);
   }
 }

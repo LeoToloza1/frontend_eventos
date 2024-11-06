@@ -7,7 +7,9 @@
       <p><strong>Apellido:</strong> {{ usuario.apellido }}</p>
       <p><strong>Email:</strong> {{ usuario.email }}</p>
       <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
-      <p><strong>Rol:</strong> {{ usuario.rol.rol || "Sin rol" }}</p>
+      <p NgIf="usuario.rol.rol">
+        <strong>Rol:</strong> {{ usuario.rol.rol || "Sin rol" }}
+      </p>
     </div>
     <div *ngIf="activado">
       <mat-form-field appearance="fill">

@@ -75,6 +75,6 @@ export class PerfilComponent implements OnInit {
  * 3- service de de participacion
  * 4- UI de participacion para usuario y asistente
  * 5- marcar participacion como realizada
- * 6- proteccion de rutas con guard
- * 7- ver componentes generales para resolver lo de carga de SPA
+ * 6- proteccion de rutas con guard ✅
+ * 7- ver componentes generales para resolver lo de carga de SPA ✅
  */
