@@ -35,7 +35,7 @@ export const asistenteInterceptor: HttpInterceptorFn = (req, next) => {
               'error',
               'Por favor, inicia sesión de nuevo.'
             );
-            asistenteService.logout();
+            asistenteService.logOutAsistente();
             return throwError(
               () => new Error('Error al refrescar el token. Sesión expirada.')
             );
@@ -57,7 +57,7 @@ export const asistenteInterceptor: HttpInterceptorFn = (req, next) => {
               'error',
               'Por favor, inicia sesión de nuevo.'
             );
-            asistenteService.logout();
+            asistenteService.logOutAsistente();
             return throwError(
               () => new Error('Error al refrescar el token. Sesión expirada.')
             );

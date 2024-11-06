@@ -126,4 +126,26 @@ export class AuthService {
 
     return '';
   }
+
+  /**
+   * Obtiene el rol del usuario o asistente logueado.
+   *
+   * Comprueba si hay un rol de usuario o de asistente disponible y, en caso
+   * afirmativo, devuelve el rol correspondiente. Si no hay ninguno logueado,
+   * devuelve `null`.
+   *
+   * @returns El rol del usuario o asistente logueado, o `null` si no hay
+   *          ninguno logueado.
+   */
+  getRol() {
+    const rolAsistente = this.asistenteService.getRol();
+    const rolUsuario = this.usuarioService.getRol();
+    if (rolAsistente === 'Asistente') {
+      return rolAsistente;
+    }
+    if (rolUsuario === 'Usuario') {
+      return rolUsuario;
+    }
+    return null;
+  }
 }

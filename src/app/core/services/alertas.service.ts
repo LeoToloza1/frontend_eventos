@@ -14,7 +14,7 @@ export class AlertasService {
       text: mensaje,
       title: titulo,
       showConfirmButton: false,
-      timer: 1750,
+      timer: 2000,
     });
   }
 }

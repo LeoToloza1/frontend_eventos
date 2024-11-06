@@ -8,15 +8,25 @@ import { AsistentesComponent } from './pages/asistentes/asistentes.component';
 import { ParticipacionComponent } from './pages/participacion/participacion.component';
 import { EventoComponent } from './pages/evento/evento.component';
 import { RegistroComponent } from './pages/registro/registro.component';
+import { authGuard } from './core/guards/auth.guard';
+import { usuarioGuard } from './core/guards/usuario.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'perfil', component: PerfilComponent },
-  { path: 'eventos', component: EventosComponent },
-  { path: 'evento', component: EventoComponent },
-  { path: 'asistentes', component: AsistentesComponent },
+  { path: 'perfil', component: PerfilComponent, canActivate: [authGuard] },
+  { path: 'eventos', component: EventosComponent, canActivate: [authGuard] },
+  { path: 'evento', component: EventoComponent, canActivate: [authGuard] },
+  {
+    path: 'asistentes',
+    component: AsistentesComponent,
+    canActivate: [authGuard, usuarioGuard],
+  },
   { path: 'registro', component: RegistroComponent },
-  { path: 'participacion', component: ParticipacionComponent },
+  {
+    path: 'participacion',
+    component: ParticipacionComponent,
+    canActivate: [authGuard],
+  },
   { path: '**', component: NotFoundComponent },
 ];
