@@ -77,4 +77,6 @@ export class PerfilComponent implements OnInit {
  * 5- marcar participacion como realizada
  * 6- proteccion de rutas con guard ✅
  * 7- ver componentes generales para resolver lo de carga de SPA ✅
+ * Problema detectado: al recargar pagina se borra el rol
+ * Problema detectado: al cargar el perfil el asistente no tiene el rol entonces da error en el html
  */

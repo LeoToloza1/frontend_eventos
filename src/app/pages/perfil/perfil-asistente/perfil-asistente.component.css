@@ -1,0 +1,42 @@
+.perfil-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.perfil-info {
+  margin-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #084e94;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+button {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}

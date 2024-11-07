@@ -1,0 +1,43 @@
+<app-nav-bar />
+<div class="perfil-container">
+  <h2>Perfil de Usuario</h2>
+  <div class="perfil-info">
+    <div *ngIf="!activado">
+      <p><strong>Nombre:</strong> {{ asistente.nombre }}</p>
+      <p><strong>Apellido:</strong> {{ asistente.apellido }}</p>
+      <p><strong>Email:</strong> {{ asistente.email }}</p>
+      <p><strong>Teléfono:</strong> {{ asistente.telefono }}</p>
+    </div>
+    <div *ngIf="activado">
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput [(ngModel)]="asistente.nombre" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Apellido</mat-label>
+        <input matInput [(ngModel)]="asistente.apellido" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="asistente.email" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Teléfono</mat-label>
+        <input matInput [(ngModel)]="asistente.telefono" type="number" />
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<button mat-raised-button *ngIf="!activado" (click)="editarPerfil()">
+  Editar Perfil
+</button>
+<button
+  mat-raised-button
+  color="accent"
+  *ngIf="activado"
+  (click)="guardarCambios()"
+>
+  Guardar Cambios
+</button>
+
+<app-footer />

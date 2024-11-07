@@ -5,4 +5,5 @@ export interface Asistente {
   email: string;
   telefono: number;
   dni: number;
+  password?: string | null;
 }
