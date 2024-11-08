@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Evento } from '../Interfaces/Evento';
+import { Params } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +14,10 @@ export class EventoService {
 
   obtenerEventos(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.apiUrl);
+  }
+
+  buscarPorNombre(nombre: string): Observable<Evento[]> {
+    return this.http.get<Evento[]>(`${this.apiUrl}/nombre?nombre=${nombre}`);
   }
 
   obtenerEventosActivos(): Observable<Evento[]> {

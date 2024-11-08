@@ -11,13 +11,13 @@ import { AlertasService } from '../../core/services/alertas.service';
 @Component({
   selector: 'app-evento',
   standalone: true,
-  imports: [NavBarComponent, FooterComponent, NgFor, FormsModule],
+  imports: [NavBarComponent, FooterComponent, FormsModule],
   templateUrl: './evento.component.html',
   styleUrl: './evento.component.css',
 })
 export class EventoComponent implements OnInit {
   eventos: Evento[] = [];
-  // id: number = 0;
+  id: number = 0;
   nombre: string = '';
   ubicacion: string = '';
   fecha: string = '';
@@ -32,6 +32,7 @@ export class EventoComponent implements OnInit {
 
   guardarEvento() {
     const nuevoEvento: Evento = {
+      id: this.id,
       nombre: this.nombre,
       ubicacion: this.ubicacion,
       fecha: this.fecha,

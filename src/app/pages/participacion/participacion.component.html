@@ -1,5 +1,28 @@
 <app-nav-bar />
+<div class="titulo">
+  <div class="titulo-contenido">
+    <div class="titulo-texto">
+      <h3>Listado de eventos disponibles</h3>
+      <p>Puede confirmar su asistencia en el evento de su preferencia</p>
+    </div>
+    <p>También puede buscarlos por nombre:</p>
+    <div class="buscador">
+      <input
+        type="text"
+        placeholder="ingrese 3 letras para buscar"
+        [(ngModel)]="searchQuery"
+        (input)="buscarEventos()"
+      />
+      <button>
+        <img
+          src="https://img.icons8.com/ios-filled/50/000000/search.png"
+          alt="buscar"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+<hr />
 
-<p>participacion works!</p>
-
+<app-card [eventos]="eventos" />
 <app-footer />

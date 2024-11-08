@@ -1,22 +1,23 @@
-<div *ngFor="let evento of eventos" class="card">
-  <div class="card-body">
-    <div class="card-content">
-      <div class="card-title">
-        <h3>{{ evento.nombre }}</h3>
-      </div>
-      <div class="card-info">
-        <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
-        <p><strong>Descripción:</strong> {{ evento.descripcion }}</p>
-        <p><strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
-      </div>
-      <button
-        (click)="participar()"
-        class="participar-button"
-        mat-raised-button
-        color="primary"
-      >
-        Participar
-      </button>
+<div class="participacion-container">
+  @for (evento of eventos; track evento.id) {
+  <div class="card-content">
+    <div class="card-title">
+      <h3>{{ evento.nombre }}</h3>
     </div>
+    <div class="card-info">
+      <p><strong>ID:</strong> {{ evento.id }}</p>
+      <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
+      <p><strong>Descripción:</strong> {{ evento.descripcion }}</p>
+      <p><strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
+    </div>
+    <button
+      (click)="participar(evento.id)"
+      class="participar-button"
+      mat-raised-button
+      color="primary"
+    >
+      Participar
+    </button>
   </div>
+  }
 </div>
