@@ -27,7 +27,11 @@ export const routes: Routes = [
     canActivate: [authGuard, asistenteGuard],
   },
   { path: 'eventos', component: EventosComponent, canActivate: [authGuard] },
-  { path: 'evento', component: EventoComponent, canActivate: [authGuard] },
+  {
+    path: 'evento',
+    component: EventoComponent,
+    canActivate: [authGuard, usuarioGuard],
+  },
   {
     path: 'asistentes',
     component: AsistentesComponent,
