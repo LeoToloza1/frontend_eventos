@@ -41,7 +41,35 @@ export class CardComponent implements OnInit {
     }
   }
 
-  participar(evento_id: number) {
+  /**
+   * Registra la participación del usuario en el evento cuyo id se pasa como parámetro.
+   * Llama al método `crearPaticipaicion` del servicio `ParticipacionService` y, si se
+   * obtiene el registro correctamente, muestra una notificación de éxito.
+   * Si ocurre un error, muestra una notificación de error.
+   * @param evento_id El id del evento en el que se va a registrar la participación.
+   */
+  participar(evento_id: number): void {
     console.log('ID DEL EVENTO CLICK: -->' + evento_id);
+    this.participacionService
+      .crearPaticipaicion(evento_id)
+      .pipe(
+        tap(() => {
+          this.alertaService.mostrarToast(
+            'Su participación en el evento fue registrada correctamente',
+            'success',
+            'Participación confirmada'
+          );
+        }),
+        catchError((error) => {
+          console.error('Error al registrar la participación', error);
+          this.alertaService.mostrarToast(
+            'No se pudo registrar su participación en el evento',
+            'error',
+            'Error al participar'
+          );
+          return EMPTY;
+        })
+      )
+      .subscribe();
   }
 }

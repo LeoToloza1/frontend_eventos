@@ -6,6 +6,7 @@ import { EventoService } from '../../core/services/eventos.service';
 import { catchError, EMPTY } from 'rxjs';
 import { Evento } from '../../core/Interfaces/Evento';
 import { FormsModule } from '@angular/forms';
+import { AlertasService } from '../../core/services/alertas.service';
 
 @Component({
   selector: 'app-participacion',
@@ -19,9 +20,10 @@ export class ParticipacionComponent {
   eventos: Evento[] = [];
 
   private eventoService = inject(EventoService);
+  private alertaService = inject(AlertasService);
 
   buscarEventos(): void {
-    if (this.searchQuery.trim() && this.searchQuery.length === 3) {
+    if (this.searchQuery.trim() && this.searchQuery.length >= 3) {
       this.eventoService
         .buscarPorNombre(this.searchQuery)
         .pipe(
@@ -32,6 +34,14 @@ export class ParticipacionComponent {
         )
         .subscribe((eventos) => {
           this.eventos = eventos;
+          if (eventos.length === 0) {
+            this.alertaService.mostrarToast2(
+              `Lo sentimos, no tenemos eventos previstos con ese nombre,
+              por favor, intente buscar con otro nombre`,
+              'warning',
+              'No se encontraron eventos'
+            );
+          }
         });
     } else {
       this.loadEventos();

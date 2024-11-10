@@ -36,6 +36,19 @@ export class ParticipacionService {
       realizado: true,
     });
   }
+
+  /**
+   * Crea una nueva participacion para el usuario actual.
+   * Llama al m todo `post` del servicio `HttpClient` y, si se
+   * obtiene el evento correctamente, devuelve la participacion
+   * recien creada.
+   * @param id_evento El id del evento para el cual se va a crear
+   * la participacion.
+   */
+  crearPaticipaicion(evento_id: number): Observable<Participacion> {
+    return this.http.post<Participacion>(`${this.apiUrl}/crear`, { evento_id });
+  }
+
   //solo para asistentes
   confirmarParticipacion(): Observable<Participacion> {
     return this.http.get<Participacion>(`${this.apiUrl}/confirmar`);
