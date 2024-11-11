@@ -17,4 +17,15 @@ export class AlertasService {
       timer: 2000,
     });
   }
+  mostrarToast2(mensaje: string, tipo: SweetAlertIcon, titulo: string) {
+    Swal.fire({
+      position: 'center',
+      icon: tipo,
+      text: mensaje,
+      title: titulo,
+      showConfirmButton: true,
+      confirmButtonText: 'Aceptar',
+      timer: 3000,
+    });
+  }
 }

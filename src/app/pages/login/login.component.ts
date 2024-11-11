@@ -41,17 +41,25 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['/']);
     }
   }
-  login(email: string, password: string) {
+  login(email: string, password: string): void {
+    this.isLoading = true;
     this.authService.login(email, password, this.esAsistente).subscribe({
       next: (data) => {
         this.alerta.mostrarToast('Login exitoso', 'success', 'Login');
-        this.router.navigate(['/perfil']);
+        if (this.esAsistente) {
+          this.router.navigate(['/perfil/asistente']);
+        } else {
+          this.router.navigate(['/perfil']);
+        }
       },
       error: (err) => {
-        this.alerta.mostrarToast('Credenciales inválidas', 'error', 'Login');
+        this.alerta.mostrarToast(
+          err?.message || 'Credenciales inválidas',
+          'error',
+          'Login'
+        );
         console.log(err);
       },
-
       complete: () => {
         this.isLoading = false;
       },
