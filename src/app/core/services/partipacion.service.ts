@@ -57,4 +57,18 @@ export class ParticipacionService {
   guardarParticipacion(e: Participacion): Observable<Participacion> {
     return this.http.post<Participacion>(`${this.apiUrl}/crear`, e);
   }
+
+  /**
+   * Devuelve una lista de participaciones del usuario actual.
+   * Llama al m todo `get` del servicio `HttpClient` y, si se
+   * obtiene el listado correctamente, devuelve el listado de
+   * participaciones.
+   */
+  misEventos(): Observable<Participacion[]> {
+    return this.http.get<Participacion[]>(`${this.apiUrl}/mis-eventos`);
+  }
+
+  sinConfirmar(): Observable<Participacion[]> {
+    return this.http.get<Participacion[]>(`${this.apiUrl}/sin-confirmar`);
+  }
 }

@@ -7,6 +7,8 @@ import { catchError, EMPTY } from 'rxjs';
 import { Evento } from '../../core/Interfaces/Evento';
 import { FormsModule } from '@angular/forms';
 import { AlertasService } from '../../core/services/alertas.service';
+import { Participacion } from '../../core/Interfaces/Participacion';
+import { ParticipacionService } from '../../core/services/partipacion.service';
 
 @Component({
   selector: 'app-participacion',
@@ -18,9 +20,11 @@ import { AlertasService } from '../../core/services/alertas.service';
 export class ParticipacionComponent {
   searchQuery: string = '';
   eventos: Evento[] = [];
+  participacion: Participacion[] = [];
 
   private eventoService = inject(EventoService);
   private alertaService = inject(AlertasService);
+  private participacipacionService = inject(ParticipacionService);
 
   buscarEventos(): void {
     if (this.searchQuery.trim() && this.searchQuery.length >= 3) {
@@ -49,16 +53,19 @@ export class ParticipacionComponent {
   }
 
   loadEventos(): void {
-    this.eventoService
-      .obtenerEventosActivos()
+    this.participacipacionService
+      .sinConfirmar()
       .pipe(
         catchError((error) => {
-          console.error('Error al cargar eventos', error);
+          console.error('Error al cargar participaciones', error);
           return EMPTY;
         })
       )
-      .subscribe((eventos) => {
-        this.eventos = eventos; // Cargamos todos los eventos
+      .subscribe((participaciones) => {
+        const eventosExtraidos = participaciones
+          .map((p) => p.evento)
+          .filter((e) => e);
+        this.eventos = eventosExtraidos;
       });
   }
 }

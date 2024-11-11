@@ -4,6 +4,7 @@ import { EventoService } from '../../../core/services/eventos.service';
 import { AlertasService } from '../../../core/services/alertas.service';
 import { ParticipacionService } from '../../../core/services/partipacion.service';
 import { catchError, EMPTY, tap } from 'rxjs';
+import { Participacion } from '../../../core/Interfaces/Participacion';
 
 @Component({
   selector: 'app-card',
@@ -14,6 +15,7 @@ import { catchError, EMPTY, tap } from 'rxjs';
 })
 export class CardComponent implements OnInit {
   @Input() eventos: Evento[] = [];
+  @Input() participacion: Participacion[] = [];
 
   private eventoService = inject(EventoService);
   private participacionService = inject(ParticipacionService);
@@ -23,17 +25,29 @@ export class CardComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.eventos.length === 0) {
-      this.eventoService
-        .obtenerEventosActivos()
+      this.participacionService
+        .sinConfirmar()
         .pipe(
-          tap((eventos) => (this.eventos = eventos)),
+          tap((participaciones) => {
+            const eventosExtraidos = participaciones
+              .map((p) => p.evento)
+              .filter((e) => e);
+            this.eventos = eventosExtraidos;
+            if (this.eventos.length === 0) {
+              this.alertaService.mostrarToast(
+                'No se encontraron eventos disponibles',
+                'error',
+                'Sin eventos'
+              );
+            }
+          }),
           catchError((error) => {
             this.alertaService.mostrarToast(
               'Error al cargar los eventos',
               'error',
               'Ocurrió un error'
             );
-            console.error('Hubo un error en la llamada a la api' + error);
+            console.error('Hubo un error en la llamada a la API', error);
             return EMPTY;
           })
         )
@@ -49,7 +63,6 @@ export class CardComponent implements OnInit {
    * @param evento_id El id del evento en el que se va a registrar la participación.
    */
   participar(evento_id: number): void {
-    console.log('ID DEL EVENTO CLICK: -->' + evento_id);
     this.participacionService
       .crearPaticipaicion(evento_id)
       .pipe(
