@@ -11,7 +11,7 @@
   <span class="navbar-welcome">
     <span class="spacer">
       <div *ngIf="usuario">Bienvenido, {{ usuario }}</div>
-      <button mat-button (click)="navigateTo('/logout')">Cerrar Sesión</button>
+      <button mat-button (click)="cerrarSesion()">Cerrar Sesión</button>
     </span>
   </span>
 </mat-toolbar>

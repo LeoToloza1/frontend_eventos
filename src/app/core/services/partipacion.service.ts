@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Participacion } from '../Interfaces/Participacion';
+import { Evento } from '../Interfaces/Evento';
 
 @Injectable({
   providedIn: 'root',
@@ -68,7 +69,7 @@ export class ParticipacionService {
     return this.http.get<Participacion[]>(`${this.apiUrl}/mis-eventos`);
   }
 
-  sinConfirmar(): Observable<Participacion[]> {
-    return this.http.get<Participacion[]>(`${this.apiUrl}/sin-confirmar`);
+  sinConfirmar(): Observable<Evento[]> {
+    return this.http.get<Evento[]>(`${this.apiUrl}/sin-confirmar`);
   }
 }

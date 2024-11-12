@@ -148,4 +148,13 @@ export class AuthService {
     }
     return null;
   }
+
+  logout() {
+    if (this.asistenteService.getToken()) {
+      this.asistenteService.logOutAsistente();
+    }
+    if (this.usuarioService.getToken()) {
+      this.usuarioService.logOutUsuario();
+    }
+  }
 }

@@ -52,10 +52,11 @@ export class AsistentesService {
   getNombre() {
     return localStorage.getItem(this.nombreAsistenteKey);
   }
-
+  removeNombre() {
+    return localStorage.removeItem(this.nombreAsistenteKey);
+  }
   logOutAsistente() {
-    this.removeToken();
-    this.removeId();
+    localStorage.clear();
   }
 
   obtenerAsistentes(): Observable<Asistente[]> {
