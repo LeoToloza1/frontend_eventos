@@ -1,17 +1,38 @@
+@if(this.rol == "Usuario"){
 <mat-toolbar color="primary" class="navbar">
   <span>Gestión de Eventos</span>
   <span class="navbar-links">
     <button mat-button (click)="navigateTo('/eventos')">Eventos</button>
     <button mat-button (click)="navigateTo('/asistentes')">Asistentes</button>
-    <button mat-button (click)="navigateTo('/participacion')">
-      Participación
-    </button>
+
     <button mat-button (click)="navigateTo('/perfil')">Perfil</button>
   </span>
   <span class="navbar-welcome">
     <span class="spacer">
-      <div *ngIf="usuario">Bienvenido, {{ usuario }}</div>
+      @if(this.perfil?.nombre) {
+      <div>Bienvenido, {{ perfil?.nombre }}</div>
+      }
       <button mat-button (click)="cerrarSesion()">Cerrar Sesión</button>
     </span>
   </span>
 </mat-toolbar>
+} @else {
+<mat-toolbar color="primary" class="navbar">
+  <span>Gestión de Eventos</span>
+  <span class="navbar-links">
+    <button mat-button (click)="navigateTo('/participacion')">
+      Participación
+    </button>
+    <button mat-button (click)="navigateTo('/mis-eventos')">Mis Eventos</button>
+    <button mat-button (click)="navigateTo('/perfil')">Perfil</button>
+  </span>
+  <span class="navbar-welcome">
+    <span class="spacer">
+      @if(this.perfil?.nombre) {
+      <div>Bienvenido, {{ perfil?.nombre }}</div>
+      }
+      <button mat-button (click)="cerrarSesion()">Cerrar Sesión</button>
+    </span>
+  </span>
+</mat-toolbar>
+}

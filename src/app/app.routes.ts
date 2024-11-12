@@ -12,6 +12,7 @@ import { authGuard } from './core/guards/auth.guard';
 import { usuarioGuard } from './core/guards/usuario.guard';
 import { PerfilAsistenteComponent } from './pages/perfil/perfil-asistente/perfil-asistente.component';
 import { asistenteGuard } from './core/guards/asistente.guard';
+import { MisEventosComponent } from './pages/eventos/mis-eventos/mis-eventos.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -31,6 +32,11 @@ export const routes: Routes = [
     path: 'evento',
     component: EventoComponent,
     canActivate: [authGuard, usuarioGuard],
+  },
+  {
+    path: 'mis-eventos',
+    component: MisEventosComponent,
+    canActivate: [authGuard, asistenteGuard],
   },
   {
     path: 'asistentes',
