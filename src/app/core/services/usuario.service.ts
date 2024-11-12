@@ -63,8 +63,7 @@ export class UsuarioService {
   }
 
   logOutUsuario() {
-    this.removeToken();
-    this.removeId();
+    localStorage.clear();
   }
 
   /**
@@ -89,8 +88,13 @@ export class UsuarioService {
    * @returns El nombre del usuario si está disponible, o null si no.
    */
   getNombre(): string | null {
-    return localStorage.getItem(this.nombreUsuarioKey); // Usar la clave correcta
+    return localStorage.getItem(this.nombreUsuarioKey);
   }
+
+  removeNombre() {
+    return localStorage.removeItem(this.nombreUsuarioKey);
+  }
+
   /**
    * Registra un nuevo usuario en el sistema.
    *

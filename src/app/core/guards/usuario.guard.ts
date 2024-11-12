@@ -12,18 +12,11 @@ import { AlertasService } from '../services/alertas.service';
  * @returns True si el rol es "Usuario", false en caso contrario.
  */
 export const usuarioGuard: CanActivateFn = (route, state) => {
-  console.log('ruta: ' + route);
-  console.log('state: ' + state);
   const authService = inject(AuthService);
   const alerta = inject(AlertasService);
   const rol = authService.getRol();
   if (rol !== 'Usuario') {
     const router = inject(Router);
-    // alerta.mostrarToast(
-    //   'No tiene los permisos para acceder a la ruta',
-    //   'info',
-    //   'Acceso denegado'
-    // );
     router.navigate(['/perfil/asistente']);
     return false;
   }

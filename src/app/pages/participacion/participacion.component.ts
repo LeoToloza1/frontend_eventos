@@ -57,15 +57,12 @@ export class ParticipacionComponent {
       .sinConfirmar()
       .pipe(
         catchError((error) => {
-          console.error('Error al cargar participaciones', error);
+          console.error('Error al cargar eventos', error);
           return EMPTY;
         })
       )
-      .subscribe((participaciones) => {
-        const eventosExtraidos = participaciones
-          .map((p) => p.evento)
-          .filter((e) => e);
-        this.eventos = eventosExtraidos;
+      .subscribe((eventos) => {
+        this.eventos = eventos;
       });
   }
 }

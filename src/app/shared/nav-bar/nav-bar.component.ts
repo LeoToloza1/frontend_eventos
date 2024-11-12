@@ -22,4 +22,10 @@ export class NavBarComponent implements OnInit {
   navigateTo(route: string) {
     this.router.navigate([route]);
   }
+
+  cerrarSesion(): void {
+    console.log('Click en cerrar sesion');
+    this.authService.logout();
+    this.router.navigate(['/']);
+  }
 }
