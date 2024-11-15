@@ -5,11 +5,11 @@ import { AlertasService } from '../../../core/services/alertas.service';
 import { ParticipacionService } from '../../../core/services/partipacion.service';
 import { catchError, EMPTY, tap } from 'rxjs';
 import { Participacion } from '../../../core/Interfaces/Participacion';
-
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-card',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
 })
@@ -30,7 +30,6 @@ export class CardComponent implements OnInit {
         .pipe(
           tap((eventos) => (this.eventos = eventos)),
           catchError((error) => {
-            console.log(this.eventos);
             this.alertaService.mostrarToast(
               'Error al cargar los eventos',
               'error',

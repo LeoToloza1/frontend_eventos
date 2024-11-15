@@ -9,8 +9,7 @@
         <h3>{{ evento.nombre }}</h3>
       </div>
       <div class="card-info">
-        <p><strong>ID:</strong> {{ evento.id }}</p>
-        <p><strong>Fecha:</strong> {{ evento.fecha }}</p>
+        <p><strong>Fecha:</strong> {{ evento.fecha | date : "fullDate" }}</p>
         <p><strong>Descripción:</strong> {{ evento.descripcion }}</p>
         <p><strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
       </div>

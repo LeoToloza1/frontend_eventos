@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor, NgIf } from '@angular/common';
+import { NgFor, NgIf, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
@@ -19,6 +19,7 @@ import { AlertasService } from '../../core/services/alertas.service';
     NgIf,
     FormsModule,
     MatIconModule,
+    DatePipe,
   ],
   templateUrl: './eventos.component.html',
   styleUrls: ['./eventos.component.css'],

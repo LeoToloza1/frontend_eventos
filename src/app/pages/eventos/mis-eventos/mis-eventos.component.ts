@@ -7,11 +7,12 @@ import { AlertasService } from '../../../core/services/alertas.service';
 import { ParticipacionService } from '../../../core/services/partipacion.service';
 import { catchError, EMPTY } from 'rxjs';
 import { Participacion } from '../../../core/Interfaces/Participacion';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-mis-eventos',
   standalone: true,
-  imports: [NavBarComponent, FooterComponent],
+  imports: [NavBarComponent, FooterComponent, DatePipe],
   templateUrl: './mis-eventos.component.html',
   styleUrls: ['./mis-eventos.component.css'],
 })
@@ -45,7 +46,6 @@ export class MisEventosComponent implements OnInit {
           descripcion: participacion.evento.descripcion,
           realizado: participacion.evento.realizado,
         }));
-        console.log(this.eventosConfirmados);
       });
   }
 }

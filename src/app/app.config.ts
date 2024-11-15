@@ -8,6 +8,11 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { authInterceptor } from './core/interceptores/auth.interceptor';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+
+registerLocaleData(localeEs); //esto sirve para registrar el idioma
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -15,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+    { provide: LOCALE_ID, useValue: 'es' },
   ],
 };

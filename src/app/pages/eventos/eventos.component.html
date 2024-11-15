@@ -46,7 +46,9 @@
                 type="date"
               />
             </ng-container>
-            <ng-template #staticDate>{{ evento.fecha }}</ng-template>
+            <ng-template #staticDate>{{
+              evento.fecha | date : "medium"
+            }}</ng-template>
           </td>
           <td>
             <ng-container

@@ -27,7 +27,11 @@ export const routes: Routes = [
     component: PerfilAsistenteComponent,
     canActivate: [authGuard, asistenteGuard],
   },
-  { path: 'eventos', component: EventosComponent, canActivate: [authGuard] },
+  {
+    path: 'eventos',
+    component: EventosComponent,
+    canActivate: [authGuard, usuarioGuard],
+  },
   {
     path: 'evento',
     component: EventoComponent,
@@ -47,7 +51,7 @@ export const routes: Routes = [
   {
     path: 'participacion',
     component: ParticipacionComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard, asistenteGuard],
   },
   { path: '**', component: NotFoundComponent },
 ];
