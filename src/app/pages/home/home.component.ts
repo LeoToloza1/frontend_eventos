@@ -41,8 +41,4 @@ export class HomeComponent {
   validarTipo(tipo: string): boolean {
     return tipo === 'asistente' || tipo === 'usuario';
   }
-  //registro de usuarios nuevos
-  irARegistro() {
-    this.router.navigate(['/registro']); //implementar algo parecido al login
-  }
 }

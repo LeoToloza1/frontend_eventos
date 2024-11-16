@@ -65,4 +65,12 @@ export class LoginComponent implements OnInit {
       },
     });
   }
+
+  irAlRegistro() {
+    if (this.esAsistente) {
+      this.router.navigate(['/registro/asistentes']);
+    } else {
+      this.router.navigate(['/registro']);
+    }
+  }
 }

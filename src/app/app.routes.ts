@@ -13,6 +13,7 @@ import { usuarioGuard } from './core/guards/usuario.guard';
 import { PerfilAsistenteComponent } from './pages/perfil/perfil-asistente/perfil-asistente.component';
 import { asistenteGuard } from './core/guards/asistente.guard';
 import { MisEventosComponent } from './pages/eventos/mis-eventos/mis-eventos.component';
+import { RegistroAsistenteComponent } from './pages/registro/registro-asistente/registro-asistente.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -43,15 +44,17 @@ export const routes: Routes = [
     canActivate: [authGuard, asistenteGuard],
   },
   {
+    path: 'participacion',
+    component: ParticipacionComponent,
+    canActivate: [authGuard, asistenteGuard],
+  },
+  {
     path: 'asistentes',
     component: AsistentesComponent,
     canActivate: [authGuard, usuarioGuard],
   },
   { path: 'registro', component: RegistroComponent },
-  {
-    path: 'participacion',
-    component: ParticipacionComponent,
-    canActivate: [authGuard, asistenteGuard],
-  },
+  { path: 'registro/asistentes', component: RegistroAsistenteComponent },
+
   { path: '**', component: NotFoundComponent },
 ];
