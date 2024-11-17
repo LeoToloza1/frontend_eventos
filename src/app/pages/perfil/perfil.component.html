@@ -8,7 +8,7 @@
       <p><strong>Email:</strong> {{ usuario.email }}</p>
       <p><strong>Teléfono:</strong> {{ usuario.telefono }}</p>
       <p NgIf="usuario.rol.rol">
-        <strong>Rol:</strong> {{ usuario.rol.rol || "Sin rol" }}
+        <strong>Rol:</strong> {{ usuario.rol?.rol || "Sin rol" }}
       </p>
     </div>
     <div *ngIf="activado">
