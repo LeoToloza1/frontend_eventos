@@ -67,10 +67,15 @@ export class LoginComponent implements OnInit {
   }
 
   irAlRegistro() {
+    this.router.navigate(['/registro']);
+  }
+
+  //TODO
+  RecuperarPass() {
     if (this.esAsistente) {
-      this.router.navigate(['/registro/asistentes']);
+      this.router.navigate(['/recuperar']);
     } else {
-      this.router.navigate(['/registro']);
+      this.router.navigate(['/recuperar']);
     }
   }
 }

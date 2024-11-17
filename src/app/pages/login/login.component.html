@@ -19,12 +19,14 @@
         />
       </span>
       <span class="span">
-        <a href="#">Recuperá tu contraseña</a>
+        <a (click)="RecuperarPass()">Recuperá tu contraseña</a>
       </span>
       <input class="submit" type="submit" value="Log in" />
+      @if(esAsistente){
       <span class="span">
         Registrate aquí <a (click)="irAlRegistro()">Registro</a>
       </span>
+      }
     </form>
   </div>
 </div>

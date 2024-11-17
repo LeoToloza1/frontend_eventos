@@ -13,7 +13,7 @@ import { usuarioGuard } from './core/guards/usuario.guard';
 import { PerfilAsistenteComponent } from './pages/perfil/perfil-asistente/perfil-asistente.component';
 import { asistenteGuard } from './core/guards/asistente.guard';
 import { MisEventosComponent } from './pages/eventos/mis-eventos/mis-eventos.component';
-import { RegistroAsistenteComponent } from './pages/registro/registro-asistente/registro-asistente.component';
+import { RecuperarPassComponent } from './pages/recuperar-pass/recuperar-pass.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -54,7 +54,7 @@ export const routes: Routes = [
     canActivate: [authGuard, usuarioGuard],
   },
   { path: 'registro', component: RegistroComponent },
-  { path: 'registro/asistentes', component: RegistroAsistenteComponent },
+  { path: 'recuperar', component: RecuperarPassComponent },
 
   { path: '**', component: NotFoundComponent },
 ];

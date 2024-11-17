@@ -49,6 +49,10 @@ export class AsistentesService {
     );
   }
 
+  registrarse(asistente: Asistente): Observable<Asistente> {
+    return this.http.post<Asistente>(`${this.apiUrl}/crear`, asistente);
+  }
+
   getNombre() {
     return localStorage.getItem(this.nombreAsistenteKey);
   }

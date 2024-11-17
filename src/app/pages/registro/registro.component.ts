@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AlertasService } from '../../core/services/alertas.service';
-import { UsuarioService } from '../../core/services/usuario.service';
-import { Usuario } from '../../core/Interfaces/Usuario';
+import { Asistente } from '../../core/Interfaces/Asistente';
+import { AsistentesService } from '../../core/services/asistentes.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registro',
@@ -13,8 +14,9 @@ import { Usuario } from '../../core/Interfaces/Usuario';
 })
 export class RegistroComponent {
   private alertaService = inject(AlertasService);
-  private usuarioService = inject(UsuarioService);
-  usuario: Usuario = {
+  private asistenteService = inject(AsistentesService);
+  private router = inject(Router);
+  asistente: Asistente = {
     id: 0,
     nombre: '',
     apellido: '',
@@ -22,15 +24,14 @@ export class RegistroComponent {
     telefono: 0,
     dni: 0,
     password: '',
-    rol_id: 2,
   };
 
   confirmarPassword: string = '';
   validarFormulario(): boolean {
-    if (this.usuario && this.usuario.password && this.confirmarPassword) {
+    if (this.asistente && this.asistente.password && this.confirmarPassword) {
       return (
-        this.usuario.password.length >= 8 &&
-        this.usuario.password === this.confirmarPassword
+        this.asistente.password.length >= 8 &&
+        this.asistente.password === this.confirmarPassword
       );
     }
     return false;
@@ -45,10 +46,13 @@ export class RegistroComponent {
       return;
     }
 
-    this.usuarioService.registrarse(this.usuario).subscribe(
+    this.asistenteService.registrarse(this.asistente).subscribe(
       (response) => {
-        // Manejar respuesta exitosa
+        console.log(response);
         this.alertaService.mostrarToast('Registro exitoso', 'success', '');
+        this.router.navigate(['/login'], {
+          queryParams: { tipo: 'asistente' },
+        });
       },
       (error) => {
         this.alertaService.mostrarToast(

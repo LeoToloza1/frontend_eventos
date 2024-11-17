@@ -1,6 +1,6 @@
 <div class="form-container">
   <h2 class="form-title">Registro de Asistentes</h2>
-  <form>
+  <form method="post" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="nombre">Nombre</label>
       <input
@@ -9,7 +9,7 @@
         name="nombre"
         class="form-input"
         placeholder="Ingresa tu nombre completo"
-        [(ngModel)]="usuario.nombre"
+        [(ngModel)]="asistente.nombre"
         required
       />
     </div>
@@ -22,7 +22,7 @@
         name="apellido"
         class="form-input"
         placeholder="Ingresa tu apellido"
-        [(ngModel)]="usuario.apellido"
+        [(ngModel)]="asistente.apellido"
         required
       />
     </div>
@@ -35,7 +35,7 @@
         name="email"
         class="form-input"
         placeholder="ejemplo@correo.com"
-        [(ngModel)]="usuario.email"
+        [(ngModel)]="asistente.email"
         required
       />
     </div>
@@ -48,7 +48,7 @@
         name="telefono"
         class="form-input"
         placeholder="Ingresa tu número de teléfono"
-        [(ngModel)]="usuario.telefono"
+        [(ngModel)]="asistente.telefono"
         required
         min="0"
         pattern="^[0-9]*$"
@@ -63,7 +63,7 @@
         name="dni"
         class="form-input"
         placeholder="Ingresa tu número de DNI"
-        [(ngModel)]="usuario.dni"
+        [(ngModel)]="asistente.dni"
         required
         min="0"
         pattern="^[0-9]*$"
@@ -78,10 +78,10 @@
         name="password"
         class="form-input"
         placeholder="Ingresa tu contraseña"
-        [(ngModel)]="usuario.password"
+        [(ngModel)]="asistente.password"
         required
       />
-      @if(usuario.password && usuario.password.length < 8){
+      @if(asistente.password && asistente.password.length < 8){
       <p class="error-message">
         La contraseña debe tener al menos 8 caracteres
       </p>
@@ -99,7 +99,7 @@
         [(ngModel)]="confirmarPassword"
         required
       />
-      @if(usuario.password !== confirmarPassword && confirmarPassword){
+      @if(asistente.password !== confirmarPassword && confirmarPassword){
       <p class="error-message">Las contraseñas no coinciden</p>
       }
     </div>
