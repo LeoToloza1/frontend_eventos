@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Participacion } from '../Interfaces/Participacion';
 import { Evento } from '../Interfaces/Evento';
+import { IEventoConAsistentes } from '../Interfaces/EventoAsistente';
 
 @Injectable({
   providedIn: 'root',
@@ -71,5 +72,11 @@ export class ParticipacionService {
 
   sinConfirmar(): Observable<Evento[]> {
     return this.http.get<Evento[]>(`${this.apiUrl}/sin-confirmar`);
+  }
+
+  asistentesPorEvento(id: number): Observable<IEventoConAsistentes> {
+    return this.http.get<IEventoConAsistentes>(
+      `${this.apiUrl}/evento-asistentes/${id}`
+    );
   }
 }

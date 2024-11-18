@@ -24,78 +24,70 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let evento of eventos">
+        @for (evento of eventos; track evento.id) {
+        <tr>
           <td>
-            <ng-container
-              *ngIf="eventoEditando?.id === evento.id; else staticName"
-            >
-              <input
-                class="input-editar"
-                [(ngModel)]="eventoEditando!.nombre"
-              />
-            </ng-container>
-            <ng-template #staticName>{{ evento.nombre }}</ng-template>
+            @if (eventoEditando?.id === evento.id) {
+            <input class="input-editar" [(ngModel)]="eventoEditando!.nombre" />
+            } @else {
+            {{ evento.nombre }}
+            }
           </td>
           <td>
-            <ng-container
-              *ngIf="eventoEditando?.id === evento.id; else staticDate"
-            >
-              <input
-                class="input-editar"
-                [(ngModel)]="eventoEditando!.fecha"
-                type="date"
-              />
-            </ng-container>
-            <ng-template #staticDate>{{
-              evento.fecha | date : "medium"
-            }}</ng-template>
+            @if (eventoEditando?.id === evento.id) {
+            <input
+              class="input-editar"
+              [(ngModel)]="eventoEditando!.fecha"
+              [value]="eventoEditando?.fecha | date : 'yyyy-MM-dd'"
+              type="date"
+            />
+            } @else {
+            {{ evento.fecha | date : "medium" }}
+            }
           </td>
           <td>
-            <ng-container
-              *ngIf="eventoEditando?.id === evento.id; else staticDescription"
-            >
-              <input
-                class="input-editar"
-                [(ngModel)]="eventoEditando!.descripcion"
-              />
-            </ng-container>
-            <ng-template #staticDescription>{{
-              evento.descripcion
-            }}</ng-template>
+            @if (eventoEditando?.id === evento.id) {
+            <input
+              class="input-editar"
+              [(ngModel)]="eventoEditando!.descripcion"
+            />
+            } @else {
+            {{ evento.descripcion }}
+            }
           </td>
           <td>
-            <ng-container
-              *ngIf="eventoEditando?.id === evento.id; else staticLocation"
-            >
-              <input
-                class="input-editar"
-                [(ngModel)]="eventoEditando!.ubicacion"
-              />
-            </ng-container>
-            <ng-template #staticLocation>{{ evento.ubicacion }}</ng-template>
+            @if (eventoEditando?.id === evento.id) {
+            <input
+              class="input-editar"
+              [(ngModel)]="eventoEditando!.ubicacion"
+            />
+            } @else {
+            {{ evento.ubicacion }}
+            }
           </td>
           <td>
-            <ng-container
-              *ngIf="eventoEditando?.id === evento.id; else staticActions"
+            @if (eventoEditando?.id === evento.id) {
+            <button class="editar" (click)="guardarEvento()">Guardar</button>
+            <button class="eliminar" (click)="cancelarEdicion()">
+              Cancelar
+            </button>
+            } @else {
+            <button class="editar" (click)="editarEvento(evento.id || 0)">
+              Editar
+            </button>
+            <button
+              class="eliminar"
+              (click)="marcarEventoComoRealizado(evento.id || 0)"
             >
-              <button class="editar" (click)="guardarEvento()">Guardar</button>
-              <button class="eliminar" (click)="cancelarEdicion()">
-                Cancelar
-              </button>
-            </ng-container>
-            <ng-template #staticActions>
-              <button class="editar" (click)="editarEvento(evento.id || 0)">
-                Editar
-              </button>
-              <button
-                class="eliminar"
-                (click)="marcarEventoComoRealizado(evento.id || 0)"
-              >
-                Eliminar
-              </button>
-            </ng-template>
+              Eliminar
+            </button>
+            }
+            <button class="eliminar" (click)="VerAsistentes(evento.id || 0)">
+              Ver Asistentes
+            </button>
           </td>
         </tr>
+        }
       </tbody>
     </table>
   </div>

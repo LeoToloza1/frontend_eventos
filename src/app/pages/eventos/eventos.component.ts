@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgFor, NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
@@ -15,8 +15,6 @@ import { AlertasService } from '../../core/services/alertas.service';
   imports: [
     NavBarComponent,
     FooterComponent,
-    NgFor,
-    NgIf,
     FormsModule,
     MatIconModule,
     DatePipe,
@@ -43,11 +41,6 @@ export class EventosComponent implements OnInit {
     this.eventoService.obtenerEventosActivos().subscribe({
       next: (eventos) => {
         this.eventos = eventos;
-        // this.alertaService.mostrarToast(
-        //   'Eventos Activos',
-        //   'success',
-        //   'Eventos activos cargados exitosamente'
-        // );
       },
       error: (error) => {
         this.alertaService.mostrarToast(
@@ -55,17 +48,6 @@ export class EventosComponent implements OnInit {
           'error',
           'Ocurrió un error al listar los eventos\n' + error
         );
-      },
-    });
-  }
-
-  listarEventos(): void {
-    this.eventoService.obtenerEventos().subscribe({
-      next: (eventos) => {
-        this.eventos = eventos;
-      },
-      error: (error) => {
-        console.error('Error al obtener eventos:', error);
       },
     });
   }
@@ -80,11 +62,11 @@ export class EventosComponent implements OnInit {
   marcarEventoComoRealizado(id: number): void {
     this.eventoService.marcarRealizado(id).subscribe({
       next: (evento) => {
-        // console.log('Evento marcado como realizado:', evento);
+        console.log('Evento marcado como realizado:', evento);
         this.alertaService.mostrarToast(
           'Evento Realizado',
           'success',
-          `${evento.nombre}: Marcado como realizado`
+          `${this.eventoEditando?.nombre}: Marcado como realizado`
         );
         this.listarEventosActivos();
       },
@@ -110,11 +92,11 @@ export class EventosComponent implements OnInit {
     this.eventoService.obtenerEventoPorId(id).subscribe({
       next: (evento) => {
         this.eventoEditando = evento;
-        this.alertaService.mostrarToast(
-          'Edicion de Evento',
-          'success',
-          `Evento: ${this.eventoEditando?.nombre} editado correctamente`
-        );
+        // this.alertaService.mostrarToast(
+        //   'Edicion de Evento',
+        //   'success',
+        //   `Evento: ${this.eventoEditando?.nombre} editado correctamente`
+        // );
         this.listarEventosActivos();
       },
       error: (error) => {
@@ -176,5 +158,9 @@ export class EventosComponent implements OnInit {
    */
   agregarEvento(): void {
     this.router.navigate(['/evento']);
+  }
+
+  VerAsistentes(id: number): void {
+    this.router.navigate(['/evento/', id]);
   }
 }

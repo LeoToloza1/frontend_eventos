@@ -14,6 +14,7 @@ import { PerfilAsistenteComponent } from './pages/perfil/perfil-asistente/perfil
 import { asistenteGuard } from './core/guards/asistente.guard';
 import { MisEventosComponent } from './pages/eventos/mis-eventos/mis-eventos.component';
 import { RecuperarPassComponent } from './pages/recuperar-pass/recuperar-pass.component';
+import { EventosAsistentesComponent } from './pages/eventos/eventos-asistentes/eventos-asistentes.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -36,6 +37,11 @@ export const routes: Routes = [
   {
     path: 'evento',
     component: EventoComponent,
+    canActivate: [authGuard, usuarioGuard],
+  },
+  {
+    path: 'evento/:id',
+    component: EventosAsistentesComponent,
     canActivate: [authGuard, usuarioGuard],
   },
   {

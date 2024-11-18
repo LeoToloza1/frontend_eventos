@@ -4,7 +4,7 @@ import { Evento } from './Evento';
 export interface Participacion {
   id: number;
   asistente_id: number;
-  asistente?: Array<Asistente>;
+  asistente?: Asistente[];
   evento_id: number;
   evento: Evento;
   confirmacion: boolean;
