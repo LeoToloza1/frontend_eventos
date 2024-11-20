@@ -1,92 +1,120 @@
-/* Contenedor principal para las tarjetas */
 .participacion-container {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(300px, 1fr));
-  gap: 15px;
+  display: flex;
+  justify-content: center;
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Estilo del cuerpo de la tarjeta */
 .card-content {
+  width: 100%;
+  max-width: 1200px;
   background-color: #f9f9f9;
   border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.473);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
   padding: 20px;
   transition: transform 0.2s, box-shadow 0.2s;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 280px;
 }
 
-.card-content:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.849);
-}
-
-/* Estilo del título */
-.card-title h3 {
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin: 0;
-  text-align: center;
-}
-
-/* Estilo de la información de la tarjeta */
 .card-info {
-  flex-grow: 1;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .card-info p {
   font-size: 1rem;
   color: #555;
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 .card-info p strong {
   color: #333;
 }
 
-/* Botón de participación */
-.participar-button {
-  margin-top: 15px;
-  padding: 10px 20px;
+.asistentes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  padding: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.asistente-item {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+  border: 1px solid #eee;
+}
+
+.asistente-item:hover {
+  transform: scale(1.02);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.asistente-item p {
   font-size: 1rem;
-  font-weight: 600;
-  background-color: #007bff;
-  color: #ffffff;
-  border: none;
-  border-radius: 8px;
+  color: #555;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.switch input {
+  width: 40px;
+  height: 20px;
+  appearance: none;
+  background-color: #ccc;
+  border-radius: 20px;
+  position: relative;
+  outline: none;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s;
 }
 
-/* Estilo al pasar el cursor sobre el botón */
-.participar-button:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
+.switch input:checked {
+  background-color: #007bff;
 }
 
-/* Diseño responsive para pantallas pequeñas */
+.switch input::before {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: 0.3s;
+  transform: translateX(2px);
+}
+
+.switch input:checked::before {
+  transform: translateX(20px);
+}
+
 @media (max-width: 600px) {
-  .card-content {
-    padding: 15px;
+  .participacion-container {
+    max-width: 100%;
   }
 
-  .card-title h3 {
-    font-size: 1.5rem;
+  .asistentes-list {
+    grid-template-columns: 1fr;
   }
 
-  .participar-button {
+  .asistente-item p {
     font-size: 0.9rem;
-    padding: 8px 16px;
   }
 }

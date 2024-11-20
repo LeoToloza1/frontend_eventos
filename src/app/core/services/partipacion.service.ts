@@ -5,6 +5,9 @@ import { Participacion } from '../Interfaces/Participacion';
 import { Evento } from '../Interfaces/Evento';
 import { IEventoConAsistentes } from '../Interfaces/EventoAsistente';
 
+interface msjResponse {
+  msj: string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -33,10 +36,8 @@ export class ParticipacionService {
    * obtiene el evento correctamente, devuelve el evento actualizado.
    * @param id El id de la participacion a marcar como realizado.
    */
-  marcarRealizado(id: number): Observable<Participacion> {
-    return this.http.patch<Participacion>(`${this.apiUrl}/realizado/${id}`, {
-      realizado: true,
-    });
+  marcarRealizado(id: number): Observable<msjResponse> {
+    return this.http.patch<msjResponse>(`${this.apiUrl}/realizado`, { id });
   }
 
   /**

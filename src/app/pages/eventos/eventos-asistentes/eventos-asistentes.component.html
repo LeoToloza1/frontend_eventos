@@ -6,6 +6,7 @@
     <div class="card-title">
       <h3>{{ eventoDetalle.nombre }}</h3>
     </div>
+
     <div class="card-info">
       <p>
         <strong>Fecha:</strong>
@@ -13,35 +14,57 @@
       </p>
       <p><strong>Descripción:</strong> {{ eventoDetalle.descripcion }}</p>
       <p><strong>Ubicación:</strong> {{ eventoDetalle.ubicacion }}</p>
-      <p>
-        <strong>Realizado:</strong> {{ eventoDetalle.realizado ? "Sí" : "No" }}
-      </p>
+
+      <div class="switch">
+        <label for="eventoRealizadoSwitch">
+          <strong>Realizado:</strong>
+        </label>
+        <input
+          id="eventoRealizadoSwitch"
+          type="checkbox"
+          disabled
+          [checked]="eventoDetalle.realizado"
+        />
+      </div>
 
       <h4>Asistentes</h4>
-      @for(asistente of eventoDetalle.asistentes; track asistente.id) {
-      <p>
-        <strong>Asistente:</strong> {{ asistente.nombre }}
-        {{ asistente.apellido }}
-      </p>
-      <p><strong>Email:</strong> {{ asistente.email }}</p>
-      <p><strong>Teléfono:</strong> {{ asistente.telefono }}</p>
-      <p><strong>DNI:</strong> {{ asistente.dni }}</p>
-      <p>
-        <strong>Confirmación:</strong>
-        {{ asistente.confirmacion ? "Confirmado" : "Pendiente" }}
-      </p>
-      <p>
-        <strong>Asistencia Real:</strong>
-        {{
-          asistente.asistencia_real === true
-            ? "Asistió"
-            : asistente.asistencia_real === false
-            ? "No Asistió"
-            : "No Registrado"
-        }}
-      </p>
-      <hr />
-      }
+      <div class="asistentes-list">
+        @for(asistente of eventoDetalle.asistentes; track asistente.id) {
+        <div class="asistente-item">
+          <p>
+            <strong>Asistente:</strong> {{ asistente.nombre }}
+            {{ asistente.apellido }}
+          </p>
+          <p><strong>Email:</strong> {{ asistente.email }}</p>
+          <p><strong>Teléfono:</strong> {{ asistente.telefono }}</p>
+          <p><strong>DNI:</strong> {{ asistente.dni }}</p>
+
+          <div class="switch">
+            <label for="confirmacionSwitch{{ asistente.id }}">
+              <strong>Confirmación:</strong>
+            </label>
+            <input
+              id="confirmacionSwitch{{ asistente.id }}"
+              type="checkbox"
+              disabled
+              [checked]="asistente.confirmacion"
+            />
+          </div>
+
+          <div class="switch">
+            <label for="asistenciaRealSwitch{{ asistente.id }}">
+              <strong>Asistencia Real:</strong>
+            </label>
+            <input
+              id="asistenciaRealSwitch{{ asistente.id }}"
+              type="checkbox"
+              [checked]="asistente.asistencia_real"
+              (change)="toggleAsistenciaReal(eventoDetalle.id, asistente)"
+            />
+          </div>
+        </div>
+        }
+      </div>
     </div>
   </div>
 </div>

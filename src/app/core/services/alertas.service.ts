@@ -28,4 +28,21 @@ export class AlertasService {
       timer: 3000,
     });
   }
+
+  mostrarConfirmacion(
+    mensaje: string,
+    tipo: SweetAlertIcon,
+    titulo: string
+  ): Promise<boolean> {
+    return Swal.fire({
+      position: 'center',
+      icon: tipo,
+      text: mensaje,
+      title: titulo,
+      showCancelButton: true,
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+    }).then((result) => result.isConfirmed);
+  }
 }
