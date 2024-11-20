@@ -20,7 +20,7 @@ export class EventoComponent implements OnInit {
   id: number = 0;
   nombre: string = '';
   ubicacion: string = '';
-  fecha: string = '';
+  fecha: Date = new Date();
   descripcion: string = '';
   constructor(
     private eventoService: EventoService,
@@ -60,7 +60,7 @@ export class EventoComponent implements OnInit {
   resetFormulario() {
     this.nombre = '';
     this.ubicacion = '';
-    this.fecha = '';
+    this.fecha = new Date();
     this.descripcion = '';
   }
 }

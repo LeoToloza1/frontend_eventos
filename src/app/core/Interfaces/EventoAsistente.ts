@@ -17,5 +17,5 @@ export interface IEventoConAsistentes {
   fecha: Date;
   descripcion: string;
   realizado: boolean;
-  asistentes: IAsistenteEvento[];
+  asistentes?: IAsistenteEvento[];
 }

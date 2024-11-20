@@ -4,10 +4,8 @@ import { Observable } from 'rxjs';
 import { Participacion } from '../Interfaces/Participacion';
 import { Evento } from '../Interfaces/Evento';
 import { IEventoConAsistentes } from '../Interfaces/EventoAsistente';
+import { msjResponse } from '../Interfaces/MsjResponse';
 
-interface msjResponse {
-  msj: string;
-}
 @Injectable({
   providedIn: 'root',
 })
@@ -20,6 +18,13 @@ export class ParticipacionService {
     return this.http.get<Participacion[]>(this.apiUrl); //todas
   }
 
+  /**
+   * @description: Obtiene las participaciones de un evento en especifico segun los parametros pasados.
+   * @param params: HttpParams con los valores de los campos que se quieren filtrar.
+   *     - asistente_id: El id del asistente que se quiere buscar.
+   *     - evento_id: El id del evento al que se quiere buscar las participaciones.
+   * @returns: Un Observable que emite un array de Participaciones.
+   */
   participacionPorEvento(params: HttpParams): Observable<Participacion[]> {
     return this.http.get<Participacion[]>(`${this.apiUrl}/por-evento`, {
       params,
@@ -79,5 +84,16 @@ export class ParticipacionService {
     return this.http.get<IEventoConAsistentes>(
       `${this.apiUrl}/evento-asistentes/${id}`
     );
+  }
+
+  /**
+   * Genera un PDF del certificado para la participación con el id proporcionado.
+   * Llama al método `get` del servicio `HttpClient` y, si se obtiene correctamente,
+   * devuelve un objeto `msjResponse` que contiene el mensaje de éxito y la ruta del archivo.
+   * @param id El id de la participación para la cual se va a generar el PDF del certificado.
+   * @returns Un Observable que emite un `msjResponse` con el mensaje y la ruta del archivo.
+   */
+  generarPdf(id: number): Observable<msjResponse> {
+    return this.http.get<msjResponse>(`${this.apiUrl}/certificado/${id}`);
   }
 }

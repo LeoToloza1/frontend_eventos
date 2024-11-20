@@ -3,7 +3,7 @@
 <div class="">
   <h2>Mis Eventos confirmados</h2>
   <div class="eventos-container">
-    @for (evento of eventosConfirmados; track evento.id) {
+    @for (evento of eventosConfirmados; track evento.evento_id) {
     <div class="card-content">
       <div class="card-title">
         <h3>{{ evento.nombre }}</h3>
@@ -12,6 +12,7 @@
         <p><strong>Fecha:</strong> {{ evento.fecha | date : "fullDate" }}</p>
         <p><strong>Descripción:</strong> {{ evento.descripcion }}</p>
         <p><strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
+        <button (click)="generarPdf(evento.id)">Descargar Certificado</button>
       </div>
     </div>
     }
