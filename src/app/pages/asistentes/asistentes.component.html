@@ -1,7 +1,7 @@
 <app-nav-bar />
 <div>
   <div class="header">
-    <h2>Listado de Asistentes general</h2>
+    <h2>Listado de Asistentes General</h2>
   </div>
   <div>
     <table>
@@ -14,69 +14,16 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let asistente of asistentes">
-          <td>
-            <ng-container
-              *ngIf="asistenteEditando?.id === asistente.id; else staticName"
-            >
-              <input
-                class="input-editar"
-                [(ngModel)]="asistenteEditando!.nombre"
-                placeholder="Nombre"
-              />
-              <input
-                class="input-editar"
-                [(ngModel)]="asistenteEditando!.apellido"
-                placeholder="Apellido"
-              />
-            </ng-container>
-            <ng-template #staticName>
-              {{ asistente.nombre }} {{ asistente.apellido }}
-            </ng-template>
-          </td>
-          <td>
-            <ng-container
-              *ngIf="asistenteEditando?.id === asistente.id; else staticEmail"
-            >
-              <input
-                class="input-editar"
-                [(ngModel)]="asistenteEditando!.email"
-                type="email"
-                placeholder="Email"
-              />
-            </ng-container>
-            <ng-template #staticEmail>{{ asistente.email }}</ng-template>
-          </td>
-          <td>
-            <ng-container
-              *ngIf="asistenteEditando?.id === asistente.id; else staticPhone"
-            >
-              <input
-                class="input-editar"
-                [(ngModel)]="asistenteEditando!.telefono"
-                type="tel"
-                placeholder="Teléfono"
-              />
-            </ng-container>
-            <ng-template #staticPhone>{{ asistente.telefono }}</ng-template>
-          </td>
-          <td>
-            <ng-container
-              *ngIf="asistenteEditando?.id === asistente.id; else staticDni"
-            >
-              <input
-                class="input-editar"
-                [(ngModel)]="asistenteEditando!.dni"
-                type="number"
-                placeholder="DNI"
-              />
-            </ng-container>
-            <ng-template #staticDni>{{ asistente.dni }}</ng-template>
-          </td>
+        @for (asistente of asistentes;track asistente.id){
+        <tr>
+          <td>{{ asistente.nombre }} {{ asistente.apellido }}</td>
+          <td>{{ asistente.email }}</td>
+          <td>{{ asistente.telefono }}</td>
+          <td>{{ asistente.dni }}</td>
         </tr>
+        }
       </tbody>
     </table>
   </div>
 </div>
-
 <app-footer />

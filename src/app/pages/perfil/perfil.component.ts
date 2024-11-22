@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { NavBarComponent } from '../../shared/nav-bar/nav-bar.component';
 import { AlertasService } from '../../core/services/alertas.service';
 import { AuthService } from '../../core/services/auth.service';
 import { Usuario } from '../../core/Interfaces/Usuario';
-import { FormsModule } from '@angular/forms'; // Importa FormsModule
-import { MatFormFieldModule } from '@angular/material/form-field'; // Importa MatFormFieldModule
-import { MatInputModule } from '@angular/material/input'; // Importa MatInputModule
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { UsuarioService } from '../../core/services/usuario.service';
+import { catchError } from 'rxjs';
 
 @Component({
   selector: 'app-perfil',
@@ -24,6 +26,8 @@ import { MatInputModule } from '@angular/material/input'; // Importa MatInputMod
   styleUrl: './perfil.component.css',
 })
 export class PerfilComponent implements OnInit {
+  private usuarioService = inject(UsuarioService);
+
   usuario: Usuario = {
     id: 0,
     dni: 0,
@@ -31,8 +35,7 @@ export class PerfilComponent implements OnInit {
     apellido: '',
     email: '',
     telefono: 0,
-    password: '',
-    rol: { rol: '' },
+    password: null,
     rol_id: 0,
   };
   activado = false;
@@ -43,40 +46,61 @@ export class PerfilComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.obtenerUsuario();
+    this.authService
+      .getPerfil()
+      .pipe()
+      .subscribe((response) => {
+        this.usuario = response;
+        console.log('RESPUESTA DEL PERFIL: -->', response);
+      });
   }
 
   editarPerfil() {
     this.activado = true;
   }
 
-  guardarCambios() {
-    // this.alerta.mostrarToast(
-    //   'Guardando cambios...',
-    //   'info',
-    //   'Guardando cambios'
-    // );
-    this.activado = false;
-  }
-  obtenerUsuario() {
-    this.authService
-      .getPerfil()
-      .pipe()
-      .subscribe((response) => {
-        this.usuario = response;
+  guardarCambios(usuarioEditado: Usuario) {
+    const usuarioParaActualizar: Usuario = {
+      id: this.usuario.id,
+      nombre: usuarioEditado.nombre,
+      apellido: usuarioEditado.apellido,
+      dni: usuarioEditado.dni,
+      email: usuarioEditado.email,
+      telefono: usuarioEditado.telefono,
+      rol_id: this.usuario.rol_id,
+    };
+
+    console.log('Edición de perfil: --> ', usuarioParaActualizar);
+
+    this.alerta
+      .mostrarConfirmacion(
+        '¿Estás seguro de que deseas guardar los cambios en tu perfil?',
+        'question',
+        'Confirmar cambios'
+      )
+      .then((confirmado) => {
+        if (confirmado) {
+          this.usuarioService
+            .editarPerfil(usuarioParaActualizar)
+            .pipe(
+              catchError((error) => {
+                this.alerta.mostrarToast(
+                  'Error al guardar los cambios. Por favor, inténtalo nuevamente.',
+                  'error',
+                  'Error'
+                );
+                throw error;
+              })
+            )
+            .subscribe(() => {
+              this.alerta.mostrarToast(
+                'Los cambios se han guardado correctamente.',
+                'success',
+                'Éxito'
+              );
+              this.activado = false;
+            });
+        }
       });
   }
 }
-
-/**
- * TODO:
- * 1- modificar perfil para que sirva para usuario y asistente
- * 2- Guardar cambios para usuario y asistente
- * 3- service de de participacion
- * 4- UI de participacion para usuario y asistente
- * 5- marcar participacion como realizada
- * 6- proteccion de rutas con guard ✅
- * 7- ver componentes generales para resolver lo de carga de SPA ✅
- * Problema detectado: al recargar pagina se borra el rol
- * Problema detectado: al cargar el perfil el asistente no tiene el rol entonces da error en el html
- */

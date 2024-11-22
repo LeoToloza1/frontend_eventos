@@ -5,6 +5,7 @@
     <div *ngIf="!activado">
       <p><strong>Nombre:</strong> {{ asistente.nombre }}</p>
       <p><strong>Apellido:</strong> {{ asistente.apellido }}</p>
+      <p><strong>DNI:</strong> {{ asistente.dni }}</p>
       <p><strong>Email:</strong> {{ asistente.email }}</p>
       <p><strong>Teléfono:</strong> {{ asistente.telefono }}</p>
     </div>
@@ -16,6 +17,10 @@
       <mat-form-field appearance="fill">
         <mat-label>Apellido</mat-label>
         <input matInput [(ngModel)]="asistente.apellido" />
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>DNI</mat-label>
+        <input matInput [(ngModel)]="asistente.dni" />
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>Email</mat-label>
@@ -35,7 +40,7 @@
   mat-raised-button
   color="accent"
   *ngIf="activado"
-  (click)="guardarCambios()"
+  (click)="guardarCambios(asistente)"
 >
   Guardar Cambios
 </button>

@@ -70,11 +70,8 @@ export class AsistentesService {
     return this.http.get<Asistente>(`${this.apiUrl}/${id}`);
   }
 
-  actualizarAsistente(id: number, Asistente: Asistente): Observable<Asistente> {
-    return this.http.patch<Asistente>(
-      `${this.apiUrl}/parcial/${id}`,
-      Asistente
-    );
+  editarPerfil(Asistente: Asistente): Observable<Asistente> {
+    return this.http.patch<Asistente>(`${this.apiUrl}/parcial`, Asistente);
   }
 
   guardarAsistente(e: Asistente): Observable<Asistente> {
