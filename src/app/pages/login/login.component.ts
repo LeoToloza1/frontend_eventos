@@ -70,12 +70,12 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/registro']);
   }
 
-  //TODO
   RecuperarPass() {
+    const tipo = this.esAsistente ? 'asistente' : 'usuario';
     if (this.esAsistente) {
-      this.router.navigate(['/recuperar']);
+      this.router.navigate(['/recuperar'], { queryParams: { tipo } });
     } else {
-      this.router.navigate(['/recuperar']);
+      this.router.navigate(['/recuperar'], { queryParams: { tipo } });
     }
   }
 }

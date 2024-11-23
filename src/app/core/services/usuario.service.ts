@@ -8,6 +8,9 @@ interface LoginResponse {
   token: string;
   id: number;
 }
+interface RecuperarContraseña {
+  message: string;
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -33,6 +36,13 @@ export class UsuarioService {
         this.setId(response.id);
         this.setRol('Usuario');
       })
+    );
+  }
+
+  recuperarContraseñaUsuario(email: string): Observable<RecuperarContraseña> {
+    return this.http.post<RecuperarContraseña>(
+      `${this.apiUrl}/recuperar-pass`,
+      { email }
     );
   }
 
